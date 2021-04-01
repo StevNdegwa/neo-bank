@@ -1,7 +1,9 @@
 import CreateAccount from "./CreateAccount";
 import Login from "./Login";
 
-export default {
+const Auth = {
     CreateAccount,
     Login
-}
+};
+
+export default Auth;

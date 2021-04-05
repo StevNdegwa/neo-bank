@@ -1,0 +1,55 @@
+div#root {
+    height: 100%;
+}
+
+.primary-1 {
+    background-color: #5dade2;
+}
+
+.primary-2 {
+    color: white;
+    background-color: #42a5f5;
+}
+
+.primary-3 {
+    color: white;
+    background-color: #546e7a;
+}
+
+.error-fg {
+    color: #f44336;
+}
+
+.error-bg {
+    background-color: #f44336;
+    &:hover {
+        box-shadow: 0 0 1px #f44336;
+    }
+}
+
+.warning-fg {
+    color: #ffc107;
+}
+
+.warning-bg {
+    background-color: #ffc107;
+    &:hover {
+        box-shadow: 0 0 1px #ffc107;
+    }
+}
+
+.success-fg {
+    color: #00CC33;
+}
+
+.scuccess-bg {
+    background-color: #00CC33;
+    &:hover {
+        box-shadow: 0 0 1px #00CC33;
+    }
+}
+
+.neo-bank-react-icons {
+    cursor: pointer;
+    line-height: 1.5;
+}

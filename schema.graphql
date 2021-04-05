@@ -1,0 +1,51 @@
+type Query {
+  """Registered account"""
+  account(id: String): Account
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Fetches objects given their IDs"""
+  nodes(
+    """The IDs of objects"""
+    ids: [ID!]!
+  ): [Node]!
+}
+
+"""A registered account"""
+type Account implements Node {
+  """The ID of an object"""
+  id: ID!
+  name: String
+  email: String
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+type Mutation {
+  registerAccount(input: registerAccountInput!): registerAccountPayload
+}
+
+type registerAccountPayload {
+  registerAccount: Account
+  clientMutationId: String
+}
+
+input registerAccountInput {
+  account: AccountInput!
+  clientMutationId: String
+}
+
+"""Register a new account"""
+input AccountInput {
+  firstName: String
+  lastName: String
+  email: String
+}

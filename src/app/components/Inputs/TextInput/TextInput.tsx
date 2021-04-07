@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Input } from "./styles";
+import { Input, Label } from "./styles";
 
 export type TextInputProps = {
     name: string;
@@ -8,6 +8,7 @@ export type TextInputProps = {
     label: string;
     variant?: string;
     placeholder?: string;
+    className?: string;
 }
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
@@ -15,13 +16,13 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         name, 
         type = "text", 
         label, 
-        variant, 
+        className, 
         placeholder 
     }, ref)=>{
     return (
         <>
-            <label htmlFor={name}>{ label }</label>
-            <Input ref={ref} type={ type } name={name} variant={variant} placeholder={placeholder} />
+            <Label htmlFor={name}>{ label }</Label>
+            <Input ref={ref} type={ type } name={name} className={className} placeholder={placeholder} />
         </>
     )
 })

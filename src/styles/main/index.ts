@@ -16,4 +16,4 @@ height:100%;
 export const Center = styled(Flex)`
 justify-content: center;
 align-items: center;
-`
+`;

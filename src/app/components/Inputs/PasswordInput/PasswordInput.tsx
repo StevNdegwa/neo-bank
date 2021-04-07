@@ -7,19 +7,21 @@ export type PasswordInputProps = {
     name: string;
     label?: string;
     placeholder?: string;
+    className?: string
 }
 
 const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
     ({ 
         name, 
         label, 
-        placeholder 
+        placeholder,
+        className
     }, ref)=>{
    
     return (
         <>
             <label htmlFor={name}>{ label }</label>
-            <Input ref={ref} name={name} type="password" variant="auth" placeholder={placeholder}/>
+            <Input ref={ref} name={name} type="password" className={`${className} auth`} placeholder={placeholder}/>
         </>
     )
 })

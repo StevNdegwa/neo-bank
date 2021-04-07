@@ -7,11 +7,11 @@ const Home: React.FC = ()=>{
     return (
         <Wrapper>
             <Main>
-                <button className="medium">About</button>
+                <button className="medium filled primary">About</button>
             </Main>
             <Login>
-                <Link to="/retail-login" className="button-look outline rounded">Retail Login</Link>
-                <Link to="/" className="button-look outline rounded">Corporate Login</Link>
+                <Link to="/retail-login" className="button-look outline primary">Retail Login</Link>
+                <Link to="/" className="button-look outline primary">Corporate Login</Link>
             </Login>
         </Wrapper>
     )

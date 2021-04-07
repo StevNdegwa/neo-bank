@@ -1,28 +1,3 @@
-$lightCyan: #d6eaf8;
-$darkGray: #7b7d7d;
-$skyBlue: #5dade2;
-$lightGray: #f7f7f7;
-$midnigthBlue: #34495e;
-
-@mixin button-styles {
-    display: inline-block;
-    padding: 0.5em 1em;
-    &.medium{
-        padding: 1em 1.5em;
-    }
-    &.large{
-        padding: 1.5em 2.5em;
-    }
-    &.rounded{
-        border-radius: 10px;
-    }
-    &.outline{
-        border:2px solid;
-        border-color: currentColor;
-        background-color: transparent;
-    }
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -37,7 +12,7 @@ body {
 body {
     color: #263238;
     background-color: white;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     line-height: 1.5;
 }

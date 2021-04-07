@@ -8,7 +8,8 @@ const Account: GraphQLObjectType<any, any> = new GraphQLObjectType({
     description: "A registered account",
     fields: {
         id: globalIdField("Account"),
-        name: { type: GraphQLString },
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString },
         email: { type: GraphQLString }
     }
 })

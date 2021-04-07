@@ -1,5 +1,7 @@
 import * as functions from "firebase-functions";
-import app from "./api-server";
+import app from "./api";
+
+export const api = functions.https.onRequest(app);
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -8,6 +10,3 @@ import app from "./api-server";
 // functions.logger.info("Hello logs!", {structuredData: true});
 // response.send("Hello from Firebase!");
 // });
-
-
-export const api = functions.https.onRequest(app);

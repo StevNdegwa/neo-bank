@@ -19,7 +19,8 @@ type Query {
 type Account implements Node {
   """The ID of an object"""
   id: ID!
-  name: String
+  firstName: String
+  lastName: String
   email: String
 }
 

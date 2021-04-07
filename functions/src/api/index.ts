@@ -6,6 +6,6 @@ import schema from "./middlewares/graphql/schema";
 
 const app: express.Express = express();
 
-app.use("/gql-api", graphqlHTTP({ schema, graphiql: true }))
+app.use("/graphql", graphqlHTTP({ schema, graphiql: true }))
 
 export default app;

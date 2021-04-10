@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import { globalIdField } from "graphql-relay";
 import { nodeInterface } from "./NodeInterface";
 
@@ -8,6 +8,7 @@ const Account: GraphQLObjectType<any, any> = new GraphQLObjectType({
     description: "A registered account",
     fields: {
         id: globalIdField("Account"),
+        accountRef: { type: GraphQLNonNull(GraphQLString) },
         firstName: { type: GraphQLString },
         lastName: { type: GraphQLString },
         email: { type: GraphQLString }

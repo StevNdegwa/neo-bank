@@ -1,4 +1,7 @@
 import { GraphQLString } from "graphql";
+
+import { bankAccountDB } from "../../../helpers/firebase";
+
 import types from "../types";
 import { nodeField, nodesField } from "../types/NodeInterface";
 
@@ -6,10 +9,17 @@ const queries = {
     account: {
         type: types.Account,
         description: "Registered account",
-        args: { id: { type: GraphQLString } },
-        resolve: (_:unknown, args:any, request: any, response: any)=>{
-            console.log(response);
-            return { name: "Registered account" };
+        args: { accountRef: { type: GraphQLString } },
+        resolve: async (_:unknown, args: any) => {
+            let { id, firstName, lastName, email } = await bankAccountDB().get(args.accountRef.slice(2));
+                
+            return {
+                id,
+                accountRef: `${firstName[0]}${lastName[0]}`.concat(id),
+                firstName,
+                lastName,
+                email
+            };
         }
     },
     node: nodeField,

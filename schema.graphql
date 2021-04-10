@@ -1,6 +1,6 @@
 type Query {
   """Registered account"""
-  account(id: String): Account
+  account(accountRef: String): Account
 
   """Fetches an object given its ID"""
   node(
@@ -19,6 +19,7 @@ type Query {
 type Account implements Node {
   """The ID of an object"""
   id: ID!
+  accountRef: String!
   firstName: String
   lastName: String
   email: String
@@ -46,7 +47,7 @@ input registerAccountInput {
 
 """Register a new account"""
 input AccountInput {
-  firstName: String
-  lastName: String
-  email: String
+  firstName: String!
+  lastName: String!
+  email: String!
 }

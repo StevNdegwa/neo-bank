@@ -7,31 +7,28 @@ class Firestore {
         //firestore Collection
         const collection = db.collection("registered_bank_accounts");
         return {
+            get: async (id: string)=>{
+                return collection
+                .doc(id)
+                .get()
+                .then((doc:firestore.DocumentSnapshot)=>{
+                    console.log(doc)
 
+                    return {
+                        id: doc.id,
+                        ...doc.data()
+                    }
+                })
+            },
             register: async ({ firstName, lastName, email }: BankAcc) => {
-
-                let docData = await Firestore.getLastField(collection);
-
-                let id = `${parseInt(docData.id) + 1}`;
+                let { id } = await Firestore.getLastField(collection);
+                
+                id = parseInt(id) + 1;
 
                 return collection
-                    .doc(id)
-                    .set(
-                        {
-                            firstName,
-                            lastName,
-                            email,
-                            dateCreated: new Date()
-                        }
-                    ).then(()=>{
-                        
-                        return {
-                            id,
-                            firstName,
-                            lastName,
-                            email
-                        }
-                    })
+                    .doc(id+"")
+                    .set({ firstName, lastName, email, dateCreated: new Date() })
+                    .then(()=>({ id, firstName, lastName, email }))
             },
             delete: (id: string) => {
                 return collection.doc(parseInt(id)).delete()

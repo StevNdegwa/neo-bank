@@ -15,7 +15,8 @@ const RegisterAccount = mutationWithClientMutationId({
             resolve: ({ id, email, firstName, lastName })=>{
                 
                 return {
-                    id: `${firstName[0]}${lastName[0]}`.concat(id),
+                    id,
+                    accountRef: `${firstName[0]}${lastName[0]}`.concat(id),
                     firstName,
                     lastName,
                     email

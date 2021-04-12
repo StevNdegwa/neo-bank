@@ -7,7 +7,7 @@ import { bankAccountDB } from "../../../helpers/firebase";
 const RegisterAccount = mutationWithClientMutationId({
     name: "registerAccount",
     inputFields: {
-        account: { type: GraphQLNonNull(types.AccountInput) }
+        account: { type: GraphQLNonNull(types.RegisterAccountInput) }
     },
     outputFields:{
         registerAccount: {

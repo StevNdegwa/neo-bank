@@ -1,8 +1,8 @@
 import { GraphQLInputObjectType, GraphQLNonNull, GraphQLString } from "graphql";
 
-const AccountInput = new GraphQLInputObjectType({
-    name: "AccountInput",
-    description: "Register a new account",
+const RegisterAccountInput = new GraphQLInputObjectType({
+    name: "RegisterAccountInput",
+    description: "Data required to register a new account",
     fields: {
         firstName: { type: GraphQLNonNull(GraphQLString) },
         lastName: { type: GraphQLNonNull(GraphQLString) },
@@ -10,4 +10,4 @@ const AccountInput = new GraphQLInputObjectType({
     }
 })
 
-export default AccountInput;
+export default RegisterAccountInput;

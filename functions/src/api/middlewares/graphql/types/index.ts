@@ -1,7 +1,9 @@
 import Account from "./Account";
-import AccountInput from "./AccountInput";
+import RegisterAccountInput from "./RegisterAccountInput";
+import AccountLoginInput from "./AccountLoginInput";
 
 export default { 
     Account,
-    AccountInput
+    RegisterAccountInput,
+    AccountLoginInput
 }

@@ -7,19 +7,18 @@ width:450px;
 border-radius:15px;
 overflow:hidden;
 margin:auto;
-border:2px outset ${colors.c_10};
 box-shadow:0px 0px 5px ${colors.c_75};
 `;
 
 export const Header = styled.div`
 width:100%;
-height:250px;
+height:120px;
 user-select:none;
 background-image:${colors.vertical_gradient};
 &>div.rb-logo{
     padding-top: 10px;
-    width: 100%
-    height: 200px;
+    width: 100%;
+    height: 70px;
     fill: ${colors.c_10};
 }
 &>div.text{
@@ -36,8 +35,5 @@ background-image:${colors.vertical_gradient};
 export const Form = styled.form`
 width:100%;
 padding:0.6em 1em;
-& a{
-    color: ${colors.v_100_dark};
-    font-weight: 600;
-}
+background-color: ${colors.w};
 `;

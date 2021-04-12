@@ -1,22 +1,22 @@
 @keyframes outline_button_hover {
     0% { 
-        background-image: linear-gradient(to right, $v_75 10%, transparent 100%);
+        background-image: linear-gradient(to right, $v_100 10%, transparent 100%);
         border-color: $v_100_dark;
     }
     25% { 
-        background-image: linear-gradient(to right, $v_75 40%, transparent 100%);
+        background-image: linear-gradient(to right, $v_100 40%, transparent 100%);
         border-color: $v_100_dark;
     }
     50% { 
-        background-image: linear-gradient(to right, $v_75 60%, transparent 100%);
+        background-image: linear-gradient(to right, $v_100 60%, transparent 100%);
         border-color: $v_100_dark;
     }
     75% { 
-        background-image: linear-gradient(to right, $v_75 80%, transparent 100%);
+        background-image: linear-gradient(to right, $v_100 80%, transparent 100%);
         border-color: $v_100_dark;
     }
     100% { 
-        background-image: linear-gradient(to right, $v_75 100%, transparent 100%);
+        background-image: linear-gradient(to right, $v_100 100%, transparent 100%);
         border-color: $v_100_dark;
     }
 }
@@ -33,14 +33,15 @@
         padding: 1.5em 2.5em;
     }
     &.rounded {
-        border-radius: 10px;
+        border-radius: 6px;
     }
     &.outline {
         &.primary {
             color: $v_100_dark;
             &:hover {
                 color: $w;
-                background-image: linear-gradient(to right, $v_75 100%, transparent 100%);
+                border-color: $v_100;
+                background-image: linear-gradient(to right, $v_100 100%, transparent 100%);
                 animation:  outline_button_hover 200ms linear;
             }
         }
@@ -54,8 +55,8 @@
             color: $w;
             transition: background-color 100;
             &:hover{
-                background-color: $v_75;
-                box-shadow: 0px 0px 2px $v_75;
+                background-color: $v_100;
+                box-shadow: 0px 0px 2px $v_100;
             }
         }
     }

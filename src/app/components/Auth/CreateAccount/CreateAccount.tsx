@@ -9,17 +9,17 @@ const CreateAccount: React.FC = ()=>{
         <AuthLayout>
             <Wrapper>
                 <Form>
-                    <div className="input">
-                        <TextInput name="firstname" label="First name" className="auth"/>
+                    <div>
+                        <TextInput name="firstname" label="First name" className="auth" placeholder="First name"/>
                     </div>
-                    <div  className="input">
-                        <TextInput name="lastName" label="Last name" className="auth"/>
-                    </div>
-                    <div className="input">
-                        <TextInput name="email" label="Email" className="auth"/>
+                    <div>
+                        <TextInput name="lastName" label="Last name" className="auth" placeholder="Last name"/>
                     </div>
                     <div style={{width:"100%"}}>
-                        <button type="submit" className="filled primary">Create Account</button>
+                        <TextInput name="email" label="Email" className="auth" placeholder="Email address"/>
+                    </div>
+                    <div>
+                        <button type="submit" className="filled primary rounded medium">Create Account</button>
                     </div>
                 </Form>
             </Wrapper>

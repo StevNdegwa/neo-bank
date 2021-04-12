@@ -4,49 +4,49 @@ div#root {
 }
 
 .primary-1 {
-    background-color: #5dade2;
+    background-color: $c_100;
 }
 
 .primary-2 {
-    color: white;
-    background-color: #42a5f5;
+    color: $w;
+    background-color: $v_100;
 }
 
 .primary-3 {
-    color: white;
-    background-color: #546e7a;
+    color: $w;
+    background-color: $f_100;
 }
 
 .error-fg {
-    color: #f44336;
+    color: $r_100;
 }
 
 .error-bg {
-    background-color: #f44336;
+    background-color: $r_100;
     &:hover {
-        box-shadow: 0 0 1px #f44336;
+        box-shadow: 0 0 1px $r_100;
     }
 }
 
 .warning-fg {
-    color: #ffc107;
+    color: $y_100;
 }
 
 .warning-bg {
-    background-color: #ffc107;
+    background-color: $y_100;
     &:hover {
-        box-shadow: 0 0 1px #ffc107;
+        box-shadow: 0 0 1px $y_100;
     }
 }
 
 .success-fg {
-    color: #00CC33;
+    color: $g_100;
 }
 
 .scuccess-bg {
-    background-color: #00CC33;
+    background-color: $g_100;
     &:hover {
-        box-shadow: 0 0 1px #00CC33;
+        box-shadow: 0 0 1px $g_100;
     }
 }
 

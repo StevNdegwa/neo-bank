@@ -11,8 +11,11 @@ display:flex;
 flex-wrap:wrap;
 justify-content:space-between;
 padding:10px;
-&>div.input{
+&>div{
     width:380px;
     margin-bottom:15px;
+    &:last-child{
+        width:100%;
+    }
 }
 `

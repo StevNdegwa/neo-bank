@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { colors } from "../../../../styles/ds";
+import { Center } from "../../../../styles/main";
 
 export const Wrapper = styled.div`
 width:450px;
@@ -33,7 +34,22 @@ background-image:${colors.vertical_gradient};
 `;
 
 export const Form = styled.form`
-width:100%;
-padding:0.6em 1em;
+width: 100%;
+padding: 0.6em 1em;
 background-color: ${colors.w};
 `;
+
+export const Info = styled(Center)`
+min-height: 50px;
+font-size: 1.3em;
+font-weight: 300;
+&>span.highlight{
+    font-style: italic;
+    color: ${colors.v_75};
+}
+`;
+
+export const Spacer = styled.div`
+width:100%;
+height: ${(props:{ height: string; })=>props.height};
+`

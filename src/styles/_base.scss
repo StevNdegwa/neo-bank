@@ -46,6 +46,10 @@ input {
     display: inline-block;
     box-sizing: border-box;
     background-color: $w;
+    &[type="submit"]{
+        width: auto;
+        @include button-styles()
+    }
     &.auth{
         border: none;
         outline: none;

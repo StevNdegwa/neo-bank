@@ -1,15 +1,16 @@
+import { GraphQLFieldConfigMap, Thunk } from "graphql";
 import { bankAccountDB } from "../../../helpers/firebase";
 
 import types from "../types";
 import { nodeField, nodesField } from "../types/NodeInterface";
 
-const queries = {
+const queries: Thunk<GraphQLFieldConfigMap<unknown, any>> = {
     account: {
         type: types.Account,
         description: "Registered account",
-        args: { accountRef: { type: types.AccountLoginInput } },
+        args: { account: { type: types.AccountLoginInput } },
         resolve: async (_:unknown, args: any) => {
-            let { id, firstName, lastName, email } = await bankAccountDB().get(args.accountRef.slice(2));
+            let { id, firstName, lastName, email } = await bankAccountDB().get(args.account.accountRef.slice(2));
                 
             return {
                 id,
@@ -23,7 +24,7 @@ const queries = {
     login: {
         type: types.Account,
         description: "Login to account",
-        args: { account: types.AccountLoginInput },
+        args: { account: { type: types.AccountLoginInput } },
         resolve: async (_: unknown, args: any) => {
             return {
                 name:"You"

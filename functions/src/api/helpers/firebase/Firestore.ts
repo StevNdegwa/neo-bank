@@ -12,7 +12,6 @@ class Firestore {
                 .doc(id)
                 .get()
                 .then((doc:firestore.DocumentSnapshot)=>{
-                    console.log(doc)
 
                     return {
                         id: doc.id,

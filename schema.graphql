@@ -1,6 +1,9 @@
 type Query {
   """Registered account"""
-  account(accountRef: String): Account
+  account(account: AccountLoginInput): Account
+
+  """Login to account"""
+  login(account: AccountLoginInput): Account
 
   """Fetches an object given its ID"""
   node(
@@ -31,6 +34,12 @@ interface Node {
   id: ID!
 }
 
+"""Data required to successfully login to application"""
+input AccountLoginInput {
+  accountRef: String!
+  password: String
+}
+
 type Mutation {
   registerAccount(input: registerAccountInput!): registerAccountPayload
 }
@@ -41,12 +50,12 @@ type registerAccountPayload {
 }
 
 input registerAccountInput {
-  account: AccountInput!
+  account: RegisterAccountInput!
   clientMutationId: String
 }
 
-"""Register a new account"""
-input AccountInput {
+"""Data required to register a new account"""
+input RegisterAccountInput {
   firstName: String!
   lastName: String!
   email: String!

@@ -1,13 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Suspense } from "react";
 import { ReactSVG } from "react-svg";
+import { graphql } from "babel-plugin-relay/macro";
+import { GraphQLTaggedNode, useQueryLoader } from "react-relay";
+import PulseLoader from "react-spinners/PulseLoader";
 
 import lock from "../../../../assets/media/images/lock.svg";
 import AuthLayout from "../../../layouts/AuthLayout";
-import { TextInput } from "../../Inputs";
-import { Wrapper, Header, Form } from "./styles";
+import { Wrapper, Header, Info } from "./styles";
+import ValidateAccount from "./ValidateAccount/ValidateAccount";
+import Authn from "./Authn/Authn";
+
+export const loginQuery: GraphQLTaggedNode = graphql`
+    query LoginQuery ($accountRef: String!) {
+        account ( account: { accountRef: $accountRef} ){
+            id
+            firstName
+            lastName
+            email
+            accountRef
+        }
+    }
+`;
 
 const Login: React.FC = ()=>{
+    const [loginQueryRef, loadLoginData] = useQueryLoader(loginQuery);
+    
+    const onSubmitHandler = (data: any)=>{
+        loadLoginData(data);
+    }
+
     return (
         <AuthLayout>
             <Wrapper>
@@ -18,15 +39,15 @@ const Login: React.FC = ()=>{
                     </div>
                     <div className="text">Internet banking login</div>
                 </Header>
-                <Form autoComplete="off">
-                    <TextInput name="userID" label="Account id" className="auth" placeholder="Your User ID e.g. JN58304" />
-                    <div>
-                        <Link to="/create-acount" className="small-text highlight">Register a new acount</Link>
-                    </div>
-                    <div style={{textAlign:"center", paddingTop:"10px"}}>
-                        <button type="submit" className="medium filled primary rounded">Next</button>
-                    </div>
-                </Form>
+                {
+                    !loginQueryRef ? 
+                    <ValidateAccount validateAccount={onSubmitHandler}/> :
+                    <Suspense fallback={
+                        <Info style={{ height:"200px" }}><PulseLoader loading={true} /></Info>
+                    }>
+                        <Authn loginQuery={loginQuery} loginQueryRef={loginQueryRef} />
+                    </Suspense>
+                }
             </Wrapper>
         </AuthLayout>
     )

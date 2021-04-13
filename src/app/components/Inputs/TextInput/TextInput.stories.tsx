@@ -21,7 +21,6 @@ export const Auth = Template.bind({});
 
 Auth.args = {
     name:"name",
-    variant:"auth",
     placeholder:"Auth data input",
     label:"Auth data input"
 }
@@ -30,7 +29,6 @@ export const Email = Template.bind({})
 
 Email.args = {
     name:"email",
-    variant:"auth",
     type:"email",
     placeholder:"User email...",
     label:"Email"

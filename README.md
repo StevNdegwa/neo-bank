@@ -10,3 +10,5 @@ An internet banking portal
 6. [react-hook-form](https://react-hook-form.com/)
 7. [GraphQl](https://graphql.org/)
 8. [styled-components](https://styled-components.com/)
+9. [Github Actions](https://github.com/features/actions)
+10. [Storybook](https://storybook.js.org/)

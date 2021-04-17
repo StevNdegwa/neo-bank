@@ -6,10 +6,10 @@ import Home from "./Home";
 
 export default {
     component:Home,
-    title:"Home Component",
+    title:"Pages/App/Home",
     decorators: [
         (Story)=>(
-            <div style={{width:"1300px", height:"400px"}}>
+            <div style={{width:"1300px", height:"600px"}}>
                 <Story/>
             </div>
         )

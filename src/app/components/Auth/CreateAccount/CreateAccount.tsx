@@ -5,6 +5,8 @@ import AuthLayout from "../../../layouts/AuthLayout";
 import { TextInput } from "../../Inputs";
 import { Form, Wrapper } from "./styles";
 
+export type CreateAccountProps = { };
+
 const CreateAccount: React.FC = ()=>{
     const { register } = useForm();
 

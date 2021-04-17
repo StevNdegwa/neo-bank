@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { FC, Suspense } from "react";
 import { ReactSVG } from "react-svg";
 import { graphql } from "babel-plugin-relay/macro";
 import { GraphQLTaggedNode, useQueryLoader } from "react-relay";
@@ -9,6 +9,7 @@ import AuthLayout from "../../../layouts/AuthLayout";
 import { Wrapper, Header, Info } from "./styles";
 import ValidateAccount from "./ValidateAccount/ValidateAccount";
 import Authn from "./Authn/Authn";
+import { LoginQuery } from "./__generated__/LoginQuery.graphql";
 
 export const loginQuery: GraphQLTaggedNode = graphql`
     query LoginQuery ($accountRef: String!) {
@@ -22,8 +23,10 @@ export const loginQuery: GraphQLTaggedNode = graphql`
     }
 `;
 
-const Login: React.FC = ()=>{
-    const [loginQueryRef, loadLoginData] = useQueryLoader(loginQuery);
+export type LoginProps = {};
+
+const Login: FC<LoginProps> = ()=>{
+    const [loginQueryRef, loadLoginData] = useQueryLoader<LoginQuery>(loginQuery);
     
     const onSubmitHandler = (data: any)=>{
         loadLoginData(data);
@@ -52,5 +55,7 @@ const Login: React.FC = ()=>{
         </AuthLayout>
     )
 }
+
+Login.displayName = "Login";
 
 export default Login;

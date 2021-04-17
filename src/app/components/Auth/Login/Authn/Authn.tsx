@@ -1,12 +1,18 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { GraphQLTaggedNode, usePreloadedQuery } from "react-relay";
+import { GraphQLTaggedNode, PreloadedQuery, usePreloadedQuery } from "react-relay";
 import { Link, useHistory } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
 
+import type { LoginQuery } from "../__generated__/LoginQuery.graphql";
 import FirebaseContext from "../../../../FirebaseContext";
 import { PasswordInput, TextInput } from "../../../Inputs";
 import { Form, Info, Spacer } from "../styles";
+
+export type AuthnProps = {
+  loginQuery: GraphQLTaggedNode;
+  loginQueryRef: PreloadedQuery<LoginQuery>
+};
 
 const Authn: React.FC<AuthnProps> = ({ loginQueryRef, loginQuery }) => {
   const { account } : any = usePreloadedQuery(loginQuery, loginQueryRef);
@@ -101,9 +107,6 @@ const Authn: React.FC<AuthnProps> = ({ loginQueryRef, loginQuery }) => {
   );
 };
 
-export type AuthnProps = {
-  loginQuery: GraphQLTaggedNode;
-  loginQueryRef: any
-};
+Authn.displayName = "Authn";
 
 export default Authn;

@@ -1,12 +1,14 @@
 import React from "react";
 
-import CreateAccount from "./CreateAccount";
+import CreateAccount, { CreateAccountProps } from "./CreateAccount";
 
 import { Meta, Story } from "@storybook/react";
 
 export default {
     component: CreateAccount,
-    title:"CreateAccount"
+    title:"Auth/CreateAccount",
 } as Meta;
 
-export const Primary: Story = ()=>(<CreateAccount/>)
+const Template: Story<CreateAccountProps> = (props:CreateAccountProps)=>(<CreateAccount { ...props } />);
+
+export const Default = Template.bind({});

@@ -67,6 +67,7 @@
     ]
   },
   "devDependencies": {
+    "@focus-reactive/storybook-graphql-kit": "^1.0.2",
     "@storybook/addon-actions": "^6.1.21",
     "@storybook/addon-essentials": "^6.1.21",
     "@storybook/addon-links": "^6.1.21",

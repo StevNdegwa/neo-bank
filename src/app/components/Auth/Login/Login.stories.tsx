@@ -5,8 +5,7 @@ import { Meta, Story } from "@storybook/react";
 
 export default {
     component: Login,
-    title: "Login Component"
+    title: "Auth/Login"
 } as Meta;
 
-export const Primary: Story = ()=><Login/>
-
+export const Primary: Story = (props)=><Login { ...props }/>

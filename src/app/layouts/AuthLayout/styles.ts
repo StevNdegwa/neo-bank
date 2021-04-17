@@ -26,3 +26,11 @@ width: 100%;
 height: 50px;
 background-color:${colors.c_100};
 `;
+
+export const Action = styled.button`
+height:100%;
+&>.neo-bank-react-icons{
+    width:1.2em;
+    stroke-width:5px;
+}
+`;

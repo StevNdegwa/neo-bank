@@ -1,11 +1,19 @@
-import React from "react";
+import { FC } from "react";
+import { useHistory } from "react-router-dom";
+import { MdNavigateBefore } from "react-icons/md";
 
-import {Wrapper, Header, Main, Footer} from "./styles";
+import {Wrapper, Action, Header, Main, Footer} from "./styles";
 
-const AuthLayout: React.FC<{ children: JSX.Element }> = ({ children })=>{
+const AuthLayout: FC<{ children: JSX.Element }> = ({ children })=>{
+    let history = useHistory();
+
     return (
         <Wrapper>
-            <Header></Header>
+            <Header>
+                <Action onClick={()=>history.goBack()} >
+                    <MdNavigateBefore/>
+                </Action>
+            </Header>
             <Main>
                 { children }
             </Main>

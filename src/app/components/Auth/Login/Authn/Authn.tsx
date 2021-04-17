@@ -1,34 +1,64 @@
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { GraphQLTaggedNode, usePreloadedQuery } from "react-relay";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import PulseLoader from "react-spinners/PulseLoader";
 
+import FirebaseContext from "../../../../FirebaseContext";
 import { PasswordInput, TextInput } from "../../../Inputs";
 import { Form, Info, Spacer } from "../styles";
 
 const Authn: React.FC<AuthnProps> = ({ loginQueryRef, loginQuery }) => {
   const { account } : any = usePreloadedQuery(loginQuery, loginQueryRef);
+  const firebase = useContext(FirebaseContext);
+  let history = useHistory();
 
-  const { register, handleSubmit } = useForm({ 
-    defaultValues:{
-      accountRef:"SN1001",
-      password: ""
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const { register, handleSubmit } = useForm({ });
+
+  const authenticateUSer = async (data: { accountRef: string, password: string, email: string })=>{
+    setLoading(true);
+    try {
+      let result = await firebase?.signInUser(data.email, data.password); 
+      let user = {
+        email: result?.email,
+        displayName: result?.displayName,
+        refreshToken: result?.refreshToken,
+        uid: result?.uid      
+      }
+      history.push("/user-home", { user });
+    } catch (error) {
+      setError(error);
     }
-  });
-
-  const authenticateUSer = (data: { accountRef: string, password: string })=>{
-    console.log(data);
+    setLoading(false);
   }
   
   return (
     <Form autoComplete="off" onSubmit={handleSubmit(authenticateUSer)}>
 
+      { loading && 
+        <Info className="transparent" style={{ position:"absolute" }}>
+          <PulseLoader/>
+        </Info>
+      }
+
       <Info style={{ height:"50px", lineHeight:"50px" }}>
         Welcome back &nbsp; <span className="highlight"> {account?.lastName} </span>&nbsp;!
       </Info>
 
+      <Spacer height="10px"/>
+
+      { error &&
+        <Info style={{ lineHeight:"30px", fontSize:"0.8rem" }}>
+          { `${error}` }
+        </Info>
+      }
+      
       <TextInput
         register={register("accountRef", { required: true })}
-        disabled={true}
+        disabled={false}
         name="accountRef"
         className="auth"
         label="Account Id"
@@ -37,6 +67,17 @@ const Authn: React.FC<AuthnProps> = ({ loginQueryRef, loginQuery }) => {
 
       <Spacer height="10px"/>
 
+      <TextInput
+        register={register("email", { required: true })}
+        name="email"
+        type="email"
+        className="auth"
+        label="User email"
+        defaultValue={account?.email}
+      />
+
+      <Spacer height="10px"/>
+      
       <PasswordInput
         register={register("password", { required: true })}
         name="password"

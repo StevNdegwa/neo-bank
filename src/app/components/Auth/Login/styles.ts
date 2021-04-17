@@ -37,6 +37,7 @@ export const Form = styled.form`
 width: 100%;
 padding: 0.6em 1em;
 background-color: ${colors.w};
+position:relative;
 `;
 
 export const Info = styled(Center)`

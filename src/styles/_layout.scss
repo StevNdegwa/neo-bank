@@ -58,3 +58,7 @@ div#root {
 .small-text {
     font-size: 0.8em;
 }
+
+.transparent {
+    background-color: rgba($color: #ffff, $alpha: 0.5);
+}

@@ -1,9 +1,9 @@
 type Query {
   """Registered account"""
-  account(account: AccountLoginInput): Account
+  account(account: AccountInput): Account
 
   """Login to account"""
-  login(account: AccountLoginInput): Account
+  sessionLogin(login: AccountLoginInput): BankUserSession
 
   """Fetches an object given its ID"""
   node(
@@ -34,10 +34,30 @@ interface Node {
   id: ID!
 }
 
+"""Verify account input"""
+input AccountInput {
+  accountRef: String!
+  email: String
+}
+
+"""Bank user session data"""
+type BankUserSession {
+  account: Account
+  balances: BankBalances
+  token: String
+}
+
+"""Bank account balances"""
+type BankBalances {
+  opening_balance: Float!
+  current_balance: Float
+}
+
 """Data required to successfully login to application"""
 input AccountLoginInput {
+  idToken: String!
+  csrfToken: String!
   accountRef: String!
-  password: String
 }
 
 type Mutation {

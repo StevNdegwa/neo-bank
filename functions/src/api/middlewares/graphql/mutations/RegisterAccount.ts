@@ -32,6 +32,8 @@ const RegisterAccount = mutationWithClientMutationId({
 
         } catch (error) {
             console.log(error);
+
+            return {  }
         }
     }
 })

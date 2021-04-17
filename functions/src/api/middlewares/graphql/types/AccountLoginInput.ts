@@ -4,9 +4,10 @@ const AccountLoginInput = new GraphQLInputObjectType({
     name: "AccountLoginInput",
     description: "Data required to successfully login to application",
     fields: {
-        accountRef: { type: GraphQLNonNull(GraphQLString) },
-        password: { type: GraphQLString }
+        idToken: { type: GraphQLNonNull(GraphQLString) },
+        csrfToken: { type: GraphQLNonNull(GraphQLString) },
+        accountRef: { type: GraphQLNonNull(GraphQLString) }
     }
-})
+});
 
 export default AccountLoginInput;

@@ -12,7 +12,7 @@ const Sidebar = ()=>{
                 <MdMenu/>
             </Action>
         </Wrapper>
-        <OverLay show={showOverlay} className="transparent" onClick={()=>setShowOverLay(false)}/>
+        <OverLay show={showOverlay} onClick={()=>setShowOverLay(false)}/>
         </>
     )
 }

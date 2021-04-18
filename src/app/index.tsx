@@ -1,13 +1,18 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { RelayEnvironmentProvider } from "react-relay";
 import { IconContext } from "react-icons";
+import PulseLoader from "react-spinners/PulseLoader"
+
 import Home from "./components/Home";
 import Auth from "./components/Auth";
-import BankingPortal from "./components/BankingPortal";
 import environment from "./config/relay/Environment";
 import Firebase from "../utils/firebase";
 import FirebaseContext from "./FirebaseContext";
+
+import { Center } from "../styles/main";
+
+const BankingPortal = lazy(()=>import("./components/BankingPortal"));
 
 function App() {
   return (
@@ -22,7 +27,17 @@ function App() {
                 path="/user-home"
                 render={
                   ({ location })=>{
-                    return <BankingPortal user={location?.state}/>
+                    return (
+                      <Suspense
+                        fallback={
+                          <Center style={{backgroundColor:"white", height:"100%", width:"100%"}}>
+                            <PulseLoader/>
+                          </Center>
+                        }
+                      >
+                        <BankingPortal user={location?.state}/>
+                      </Suspense>
+                    )
                   }
                 }
               />

@@ -26,18 +26,22 @@ const Authn: React.FC<AuthnProps> = ({ loginQueryRef, loginQuery }) => {
 
   const authenticateUSer = async (data: { accountRef: string, password: string, email: string })=>{
     setLoading(true);
+    
     try {
       let result = await firebase?.signInUser(data.email, data.password); 
+      
       let user = {
         email: result?.email,
         displayName: result?.displayName,
-        refreshToken: result?.refreshToken,
-        uid: result?.uid      
+        csrfToken: result?.refreshToken,
+        idToken: result?.uid      
       }
-      history.push("/user-home", { user });
+      
+      history.push("/user-home", { user, accountRef: data.accountRef });
     } catch (error) {
       setError(error);
     }
+
     setLoading(false);
   }
   

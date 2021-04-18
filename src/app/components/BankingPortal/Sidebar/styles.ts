@@ -4,7 +4,7 @@ import { colors } from "../../../../styles/ds";
 export const Wrapper = styled.div`
 width:60px;
 height:100%;
-position:fixed;
+position:relative;
 z-index:600;
 border:none;
 background-color: ${colors.w};
@@ -37,6 +37,7 @@ left:0;
 width:100%;
 height:100%;
 display:none;
+background-color:rgba(0,0,0,0.5);
 ${({ show } : {show: boolean })=>show && css`
     display:block;
 `}

@@ -1,22 +1,32 @@
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import PageLayout from "../../layouts/PageLayout";
 import Sidebar from "./Sidebar";
-import { Header, Content } from "./styles";
+import UserDashboard from "./UserDashboard";
+import { Header, Content, Main } from "./styles";
 
 export type BankingPortalProps = {
-    user: any;
-}
+  user: any;
+};
 
-const BankingPortal: React.FC<BankingPortalProps> = ({ user })=>{
-    console.log(user);
-    
-    return (
-        <PageLayout>
-            <Sidebar/>
-            <Content>
-                <Header></Header>
-            </Content>
-        </PageLayout>
-    )
-}
+const BankingPortal: React.FC<BankingPortalProps> = ({ user }) => {
+  console.log(user);
+
+  return (
+    <PageLayout>
+        <Sidebar />
+        <Content>
+          <Header></Header>
+          <Main>
+            <Router>
+              <Switch>
+                <Route path="/" component={UserDashboard} />
+              </Switch>
+            </Router>
+          </Main>
+        </Content>
+    </PageLayout>
+  );
+};
 
 export default BankingPortal;

@@ -10,6 +10,7 @@ import { Wrapper, Header, Info } from "./styles";
 import ValidateAccount from "./ValidateAccount/ValidateAccount";
 import Authn from "./Authn/Authn";
 import { LoginQuery } from "./__generated__/LoginQuery.graphql";
+import ErrorBoundary from "../../../ErrorBoundary";
 
 export const loginQuery: GraphQLTaggedNode = graphql`
     query LoginQuery ($accountRef: String!) {
@@ -26,10 +27,15 @@ export const loginQuery: GraphQLTaggedNode = graphql`
 export type LoginProps = {};
 
 const Login: FC<LoginProps> = ()=>{
-    const [loginQueryRef, loadLoginData] = useQueryLoader<LoginQuery>(loginQuery);
+    
+    let [loginQueryRef, loadLoginData] = useQueryLoader<LoginQuery>(loginQuery);
     
     const onSubmitHandler = (data: any)=>{
         loadLoginData(data);
+    }
+
+    const handleNoData = ()=>{
+        loginQueryRef = null;
     }
 
     return (
@@ -45,11 +51,13 @@ const Login: FC<LoginProps> = ()=>{
                 {
                     !loginQueryRef ? 
                     <ValidateAccount validateAccount={onSubmitHandler}/> :
-                    <Suspense fallback={
+                    <ErrorBoundary onRetry={handleNoData} fallback={({ error })=>(<div>{ `${ error }` }</div>)}>
+                        <Suspense fallback={
                         <Info style={{ height:"200px" }}><PulseLoader loading={true} /></Info>
                     }>
                         <Authn loginQuery={loginQuery} loginQueryRef={loginQueryRef} />
                     </Suspense>
+                    </ErrorBoundary>
                 }
             </Wrapper>
         </AuthLayout>

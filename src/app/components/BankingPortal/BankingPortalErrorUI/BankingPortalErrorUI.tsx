@@ -1,6 +1,8 @@
 import { FC } from "react";
+import { EBFallBack } from "../../../types";
 
-export type BankingPortalErrorUIProps = {
+
+export interface BankingPortalErrorUIProps extends EBFallBack {
   error: Error | null
 }
 

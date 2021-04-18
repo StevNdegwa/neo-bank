@@ -11,6 +11,7 @@ import ErrorBoundary from "./ErrorBoundary";
 import environment from "./config/relay/Environment";
 import Firebase from "../utils/firebase";
 import FirebaseContext from "./FirebaseContext";
+import { EBFallBack } from "./types";
 
 import { Center } from "../styles/main";
 
@@ -30,7 +31,7 @@ function App() {
                 render={({ location }) => {
                   return (
                     <ErrorBoundary
-                      fallback={({ error }) => (
+                      fallback={({ error } : EBFallBack) => (
                         <BankingPortalErrorUI error={error} />
                       )}
                     >

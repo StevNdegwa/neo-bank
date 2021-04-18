@@ -44,6 +44,10 @@ const Authn: React.FC<AuthnProps> = ({ loginQueryRef, loginQuery }) => {
 
     setLoading(false);
   }
+
+  if(!account){
+    throw new Error("No account data");
+  }
   
   return (
     <Form autoComplete="off" onSubmit={handleSubmit(authenticateUSer)}>

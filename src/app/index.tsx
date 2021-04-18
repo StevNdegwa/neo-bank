@@ -2,17 +2,19 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { RelayEnvironmentProvider } from "react-relay";
 import { IconContext } from "react-icons";
-import PulseLoader from "react-spinners/PulseLoader"
+import PulseLoader from "react-spinners/PulseLoader";
 
 import Home from "./components/Home";
 import Auth from "./components/Auth";
+import BankingPortalErrorUI from "./components/BankingPortal/BankingPortalErrorUI";
+import ErrorBoundary from "./ErrorBoundary";
 import environment from "./config/relay/Environment";
 import Firebase from "../utils/firebase";
 import FirebaseContext from "./FirebaseContext";
 
 import { Center } from "../styles/main";
 
-const BankingPortal = lazy(()=>import("./components/BankingPortal"));
+const BankingPortal = lazy(() => import("./components/BankingPortal"));
 
 function App() {
   return (
@@ -25,21 +27,31 @@ function App() {
               <Route path="/retail-login" component={Auth.Login} />
               <Route
                 path="/user-home"
-                render={
-                  ({ location })=>{
-                    return (
+                render={({ location }) => {
+                  return (
+                    <ErrorBoundary
+                      fallback={({ error }) => (
+                        <BankingPortalErrorUI error={error} />
+                      )}
+                    >
                       <Suspense
                         fallback={
-                          <Center style={{backgroundColor:"white", height:"100%", width:"100%"}}>
-                            <PulseLoader/>
+                          <Center
+                            style={{
+                              backgroundColor: "white",
+                              height: "100%",
+                              width: "100%",
+                            }}
+                          >
+                            <PulseLoader />
                           </Center>
                         }
                       >
-                        <BankingPortal user={location?.state}/>
+                        <BankingPortal user={location?.state} />
                       </Suspense>
-                    )
-                  }
-                }
+                    </ErrorBoundary>
+                  );
+                }}
               />
               <Route path="/" component={Home} />
             </Switch>

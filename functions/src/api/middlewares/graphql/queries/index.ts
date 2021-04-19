@@ -15,7 +15,7 @@ const queries: Thunk<GraphQLFieldConfigMap<unknown, any>> = {
         resolve: async (_: unknown, args: any, context: any) => {
             let account = await bankAccountDB().get(args.account.accountRef);
 
-            if(!account){
+            if (!account) {
                 throw new GraphQLError("Account not found");
             }
 
@@ -36,35 +36,40 @@ const queries: Thunk<GraphQLFieldConfigMap<unknown, any>> = {
         args: { login: { type: types.AccountLoginInput } },
         resolve: async (_: unknown, args: any, context: any) => {
 
-            var { refreshToken, accountRef } = args.login;
-            
-            let balances = await bankAccountBalancesDB().get(accountRef);
-            let { id, lastName, firstName, email } = await bankAccountDB().get(accountRef);
+            try {
+                var { refreshToken, accountRef } = args.login;
 
-            //Sign user token
-            var token = jwt.sign(
-                {
-                    client_id: accountRef,
-                    refreshToken,
-                    email
-                },
-                security.secret,
-                {
-                    expiresIn: 3600
-                }
-            )
+                let balances = await bankAccountBalancesDB().get(accountRef);
+                let { id, lastName, firstName, email } = await bankAccountDB().get(accountRef);
 
-            return {
-                balances,
-                account: {
-                    id,
-                    accountRef:id,
-                    firstName,
-                    lastName,
-                    email
-                },
-                token
-            };
+                //Sign user token
+                var token = jwt.sign(
+                    {
+                        client_id: accountRef,
+                        refreshToken,
+                        email
+                    },
+                    security.secret,
+                    {
+                        expiresIn: 3600
+                    }
+                )
+
+                return {
+                    balances,
+                    account: {
+                        id,
+                        accountRef: id,
+                        firstName,
+                        lastName,
+                        email
+                    },
+                    token
+                };
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
         }
     },
     node: nodeField,

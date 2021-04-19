@@ -4,23 +4,24 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type UserDashboardQueryVariables = {
+    refreshToken: string;
     idToken: string;
     csrfToken: string;
     ref: string;
 };
 export type UserDashboardQueryResponse = {
     readonly sessionLogin: {
-        readonly balances: {
+        readonly balances?: {
             readonly opening_balance: number;
         } | null;
-        readonly account: {
+        readonly account?: {
             readonly id: string;
             readonly accountRef: string;
             readonly firstName: string | null;
             readonly lastName: string | null;
             readonly email: string | null;
         } | null;
-        readonly token: string | null;
+        readonly token?: string | null;
     } | null;
 };
 export type UserDashboardQuery = {
@@ -32,22 +33,26 @@ export type UserDashboardQuery = {
 
 /*
 query UserDashboardQuery(
+  $refreshToken: String!
   $idToken: String!
   $csrfToken: String!
   $ref: String!
 ) {
-  sessionLogin(login: {idToken: $idToken, csrfToken: $csrfToken, accountRef: $ref}) {
-    balances {
-      opening_balance
+  sessionLogin(login: {refreshToken: $refreshToken, idToken: $idToken, csrfToken: $csrfToken, accountRef: $ref}) {
+    __typename
+    ... on BankUser {
+      balances {
+        opening_balance
+      }
+      account {
+        id
+        accountRef
+        firstName
+        lastName
+        email
+      }
+      token
     }
-    account {
-      id
-      accountRef
-      firstName
-      lastName
-      email
-    }
-    token
   }
 }
 */
@@ -68,146 +73,186 @@ v2 = {
   "kind": "LocalArgument",
   "name": "ref"
 },
-v3 = [
+v3 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "refreshToken"
+},
+v4 = [
   {
-    "alias": null,
-    "args": [
+    "fields": [
       {
-        "fields": [
-          {
-            "kind": "Variable",
-            "name": "accountRef",
-            "variableName": "ref"
-          },
-          {
-            "kind": "Variable",
-            "name": "csrfToken",
-            "variableName": "csrfToken"
-          },
-          {
-            "kind": "Variable",
-            "name": "idToken",
-            "variableName": "idToken"
-          }
-        ],
-        "kind": "ObjectValue",
-        "name": "login"
-      }
-    ],
-    "concreteType": "BankUserSession",
-    "kind": "LinkedField",
-    "name": "sessionLogin",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "BankBalances",
-        "kind": "LinkedField",
-        "name": "balances",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "opening_balance",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
+        "kind": "Variable",
+        "name": "accountRef",
+        "variableName": "ref"
       },
       {
-        "alias": null,
-        "args": null,
-        "concreteType": "Account",
-        "kind": "LinkedField",
-        "name": "account",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "accountRef",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "firstName",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "lastName",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "email",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
+        "kind": "Variable",
+        "name": "csrfToken",
+        "variableName": "csrfToken"
       },
       {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "token",
-        "storageKey": null
+        "kind": "Variable",
+        "name": "idToken",
+        "variableName": "idToken"
+      },
+      {
+        "kind": "Variable",
+        "name": "refreshToken",
+        "variableName": "refreshToken"
       }
     ],
-    "storageKey": null
+    "kind": "ObjectValue",
+    "name": "login"
   }
-];
+],
+v5 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "BankBalances",
+      "kind": "LinkedField",
+      "name": "balances",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "opening_balance",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Account",
+      "kind": "LinkedField",
+      "name": "account",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "id",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "accountRef",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "firstName",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "lastName",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "email",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "token",
+      "storageKey": null
+    }
+  ],
+  "type": "BankUser",
+  "abstractKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
       (v0/*: any*/),
       (v1/*: any*/),
-      (v2/*: any*/)
+      (v2/*: any*/),
+      (v3/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
     "name": "UserDashboardQuery",
-    "selections": (v3/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v4/*: any*/),
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "sessionLogin",
+        "plural": false,
+        "selections": [
+          (v5/*: any*/)
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
     "argumentDefinitions": [
+      (v3/*: any*/),
       (v1/*: any*/),
       (v0/*: any*/),
       (v2/*: any*/)
     ],
     "kind": "Operation",
     "name": "UserDashboardQuery",
-    "selections": (v3/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v4/*: any*/),
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "sessionLogin",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "__typename",
+            "storageKey": null
+          },
+          (v5/*: any*/)
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "d285910b5c1cd387d241def3f7f0b1ea",
+    "cacheID": "763e772efb6eadfd320dba90769bf85c",
     "id": null,
     "metadata": {},
     "name": "UserDashboardQuery",
     "operationKind": "query",
-    "text": "query UserDashboardQuery(\n  $idToken: String!\n  $csrfToken: String!\n  $ref: String!\n) {\n  sessionLogin(login: {idToken: $idToken, csrfToken: $csrfToken, accountRef: $ref}) {\n    balances {\n      opening_balance\n    }\n    account {\n      id\n      accountRef\n      firstName\n      lastName\n      email\n    }\n    token\n  }\n}\n"
+    "text": "query UserDashboardQuery(\n  $refreshToken: String!\n  $idToken: String!\n  $csrfToken: String!\n  $ref: String!\n) {\n  sessionLogin(login: {refreshToken: $refreshToken, idToken: $idToken, csrfToken: $csrfToken, accountRef: $ref}) {\n    __typename\n    ... on BankUser {\n      balances {\n        opening_balance\n      }\n      account {\n        id\n        accountRef\n        firstName\n        lastName\n        email\n      }\n      token\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'd1f3aeba4468993543f2c2ee8304ea6e';
+(node as any).hash = 'f959b0406b954603eab0cc481545f35f';
 export default node;

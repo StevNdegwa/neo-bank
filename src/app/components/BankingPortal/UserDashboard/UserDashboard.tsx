@@ -6,30 +6,35 @@ import environment from "../../../config/relay/Environment";
 
 
 const userDashboardQuery = graphql`
-    query UserDashboardQuery ( $idToken:String!, $csrfToken:String!, $ref: String! ) {
-        sessionLogin(login: { idToken: $idToken, csrfToken:$csrfToken, accountRef:$ref}) {
-            balances {
-                opening_balance
+    query UserDashboardQuery ( $refreshToken:String!, $idToken:String!, $csrfToken:String!, $ref: String! ) {
+        sessionLogin(login: { refreshToken:$refreshToken, idToken: $idToken, csrfToken:$csrfToken, accountRef:$ref}) {
+            ...on BankUser {
+                balances {
+                    opening_balance
+                }
+                account {
+                    id
+                    accountRef
+                    firstName,
+                    lastName,
+                    email
+                }
+                token
             }
-            account {
-                id
-                accountRef
-                firstName,
-                lastName,
-                email
-            }
-            token
         }
     }
 `;
+
+let { accountRef, idToken, csrfToken, refreshToken } = window.history.state.state.user;
 
 const udqRef = loadQuery(
     environment,
     userDashboardQuery, 
     { 
-        ref: window.history.state.state.accountRef,
-        idToken: window.history.state.state.user.idToken,
-        csrfToken: window.history.state.state.user.csrfToken
+        ref: accountRef,
+        idToken,
+        csrfToken,
+        refreshToken
     }
 );
 

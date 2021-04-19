@@ -34,10 +34,12 @@ const Authn: React.FC<AuthnProps> = ({ loginQueryRef, loginQuery }) => {
         email: result?.email,
         displayName: result?.displayName,
         csrfToken: result?.refreshToken,
-        idToken: result?.uid      
+        idToken: result?.uid,
+        refreshToken: result?.refreshToken,
+        accountRef: data.accountRef
       }
       
-      history.push("/user-home", { user, accountRef: data.accountRef });
+      history.push("/user-home", { user });
     } catch (error) {
       setError(error);
     }

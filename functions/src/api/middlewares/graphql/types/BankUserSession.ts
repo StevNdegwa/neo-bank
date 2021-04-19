@@ -1,15 +1,21 @@
-import { GraphQLObjectType, GraphQLString } from "graphql";
-import Account from "./Account";
-import BankBalances from "./BankBalances";
+import { GraphQLUnionType } from "graphql";
+import BankUser from "./BankUser";
 
-const BankUserSession: GraphQLObjectType<any, any> = new GraphQLObjectType({
-    name: "BankUserSession",
-    description: "Bank user session data",
-    fields: {
-        account: { type: Account },
-        balances: { type: BankBalances },
-        token: { type: GraphQLString }
+const BankUserSession: GraphQLUnionType = new GraphQLUnionType({
+    name:"BankUserSession",
+    description: "Bank user session",
+    types: [ BankUser ],
+    resolveType: (value: any)=>{//Adde error onject
+        /**
+         *  if( !value.errors ) {
+         *       return BankUser
+         *  } else {
+         *       return null;
+        *  }
+        **/
+        console.log(value)
+        return BankUser
     }
-});
+})
 
 export default BankUserSession;

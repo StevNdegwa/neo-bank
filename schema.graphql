@@ -2,7 +2,7 @@ type Query {
   """Registered account"""
   account(account: AccountInput): Account
 
-  """Login to account"""
+  """Logged in session data"""
   sessionLogin(login: AccountLoginInput): BankUserSession
 
   """Fetches an object given its ID"""
@@ -40,8 +40,11 @@ input AccountInput {
   email: String
 }
 
+"""Bank user session"""
+union BankUserSession = BankUser
+
 """Bank user session data"""
-type BankUserSession {
+type BankUser {
   account: Account
   balances: BankBalances
   token: String
@@ -58,6 +61,7 @@ input AccountLoginInput {
   idToken: String!
   csrfToken: String!
   accountRef: String!
+  refreshToken: String!
 }
 
 type Mutation {

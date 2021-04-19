@@ -1,18 +1,26 @@
-import { GraphQLFieldConfigMap, Thunk } from "graphql";
+import { GraphQLError, GraphQLFieldConfigMap, Thunk } from "graphql";
+import * as jwt from "jsonwebtoken";
 import { bankAccountDB, bankAccountBalancesDB } from "../../../helpers/firebase";
 
 import types from "../types";
 import { nodeField, nodesField } from "../types/NodeInterface";
+
+import { security } from "../../../config";
 
 const queries: Thunk<GraphQLFieldConfigMap<unknown, any>> = {
     account: {
         type: types.Account,
         description: "Registered account",
         args: { account: { type: types.AccountInput } },
-        resolve: async (_:unknown, args: any, context:any) => {
-            console.log(context);
-            let { id, firstName, lastName, email } = await bankAccountDB().get(args.account.accountRef);
-                
+        resolve: async (_: unknown, args: any, context: any) => {
+            let account = await bankAccountDB().get(args.account.accountRef);
+
+            if(!account){
+                throw new GraphQLError("Account not found");
+            }
+
+            let { id, firstName, lastName, email } = account;
+
             return {
                 id,
                 accountRef: id,
@@ -24,32 +32,38 @@ const queries: Thunk<GraphQLFieldConfigMap<unknown, any>> = {
     },
     sessionLogin: {
         type: types.BankUserSession,
-        description: "Login to account",
+        description: "Logged in session data",
         args: { login: { type: types.AccountLoginInput } },
-        resolve: async (_: unknown, args: any, context:any) => {
+        resolve: async (_: unknown, args: any, context: any) => {
 
-            //let idToken = args.login.idToken.toString(),
-            //    csrfToken = args.login.csrfToken.toString();
+            var { refreshToken, accountRef } = args.login;
             
-            /**
-             * if(csrfToken !== context.request.cookies.csrfToken){
-                throw new Error("UNAUTHORIZED REQUEST");
-            }
-            **/
-            
-            let balances = await bankAccountBalancesDB().get(args.login.accountRef);
-            let account =  await bankAccountDB().get(args.login.accountRef);
+            let balances = await bankAccountBalancesDB().get(accountRef);
+            let { id, lastName, firstName, email } = await bankAccountDB().get(accountRef);
+
+            //Sign user token
+            var token = jwt.sign(
+                {
+                    client_id: accountRef,
+                    refreshToken,
+                    email
+                },
+                security.secret,
+                {
+                    expiresIn: 3600
+                }
+            )
 
             return {
                 balances,
-                account:{
-                    id: account.id,
-                    accountRef: account.id,
-                    firstName: account.firstName,
-                    lastName: account.lastName,
-                    email: account.email
+                account: {
+                    id,
+                    accountRef:id,
+                    firstName,
+                    lastName,
+                    email
                 },
-                token:"empty-for-now"
+                token
             };
         }
     },

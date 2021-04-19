@@ -21,11 +21,13 @@
     "firebase-admin": "^9.2.0",
     "firebase-functions": "^3.11.0",
     "graphql": "^15.5.0",
-    "graphql-relay": "^0.6.0"
+    "graphql-relay": "^0.6.0",
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
     "@types/graphql-relay": "^0.6.0",
+    "@types/jsonwebtoken": "^8.5.1",
     "firebase-functions-test": "^0.2.0",
     "typescript": "^3.8.0"
   },

@@ -6,7 +6,8 @@ const AccountLoginInput = new GraphQLInputObjectType({
     fields: {
         idToken: { type: GraphQLNonNull(GraphQLString) },
         csrfToken: { type: GraphQLNonNull(GraphQLString) },
-        accountRef: { type: GraphQLNonNull(GraphQLString) }
+        accountRef: { type: GraphQLNonNull(GraphQLString) },
+        refreshToken: { type: GraphQLNonNull(GraphQLString) }
     }
 });
 

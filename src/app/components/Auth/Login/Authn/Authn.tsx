@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { GraphQLTaggedNode, PreloadedQuery, usePreloadedQuery } from "react-relay";
 import { Link, useHistory } from "react-router-dom";
@@ -11,10 +11,11 @@ import { Form, Info, Spacer } from "../styles";
 
 export type AuthnProps = {
   loginQuery: GraphQLTaggedNode;
-  loginQueryRef: PreloadedQuery<LoginQuery>
+  loginQueryRef: PreloadedQuery<LoginQuery>,
+  setNoData: ()=>void
 };
 
-const Authn: React.FC<AuthnProps> = ({ loginQueryRef, loginQuery }) => {
+const Authn: FC<AuthnProps> = ({ loginQueryRef, loginQuery, setNoData }) => {
   const { account } : any = usePreloadedQuery(loginQuery, loginQueryRef);
   const firebase = useContext(FirebaseContext);
   let history = useHistory();
@@ -37,7 +38,7 @@ const Authn: React.FC<AuthnProps> = ({ loginQueryRef, loginQuery }) => {
         idToken: result?.uid,
         refreshToken: result?.refreshToken,
         accountRef: data.accountRef
-      }
+      };
       
       history.push("/user-home", { user });
     } catch (error) {
@@ -47,8 +48,8 @@ const Authn: React.FC<AuthnProps> = ({ loginQueryRef, loginQuery }) => {
     setLoading(false);
   }
 
-  if(!account){
-    throw new Error("No account data");
+  if(account.error){
+    throw account.error.message;
   }
   
   return (

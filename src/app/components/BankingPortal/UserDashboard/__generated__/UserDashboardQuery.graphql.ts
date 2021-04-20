@@ -22,6 +22,10 @@ export type UserDashboardQueryResponse = {
             readonly email: string | null;
         } | null;
         readonly token?: string | null;
+        readonly error?: {
+            readonly message: string;
+            readonly code: string;
+        };
     } | null;
 };
 export type UserDashboardQuery = {
@@ -52,6 +56,12 @@ query UserDashboardQuery(
         email
       }
       token
+    }
+    ... on BankUserSessionError {
+      error {
+        message
+        code
+      }
     }
   }
 }
@@ -130,7 +140,7 @@ v5 = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "Account",
+      "concreteType": "UserAccount",
       "kind": "LinkedField",
       "name": "account",
       "plural": false,
@@ -183,6 +193,38 @@ v5 = {
   ],
   "type": "BankUser",
   "abstractKey": null
+},
+v6 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ErrorResponse",
+      "kind": "LinkedField",
+      "name": "error",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "code",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "type": "BankUserSessionError",
+  "abstractKey": null
 };
 return {
   "fragment": {
@@ -204,7 +246,8 @@ return {
         "name": "sessionLogin",
         "plural": false,
         "selections": [
-          (v5/*: any*/)
+          (v5/*: any*/),
+          (v6/*: any*/)
         ],
         "storageKey": null
       }
@@ -238,21 +281,22 @@ return {
             "name": "__typename",
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v5/*: any*/),
+          (v6/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "763e772efb6eadfd320dba90769bf85c",
+    "cacheID": "06e98c4cb4a634d7509deb628d477821",
     "id": null,
     "metadata": {},
     "name": "UserDashboardQuery",
     "operationKind": "query",
-    "text": "query UserDashboardQuery(\n  $refreshToken: String!\n  $idToken: String!\n  $csrfToken: String!\n  $ref: String!\n) {\n  sessionLogin(login: {refreshToken: $refreshToken, idToken: $idToken, csrfToken: $csrfToken, accountRef: $ref}) {\n    __typename\n    ... on BankUser {\n      balances {\n        opening_balance\n      }\n      account {\n        id\n        accountRef\n        firstName\n        lastName\n        email\n      }\n      token\n    }\n  }\n}\n"
+    "text": "query UserDashboardQuery(\n  $refreshToken: String!\n  $idToken: String!\n  $csrfToken: String!\n  $ref: String!\n) {\n  sessionLogin(login: {refreshToken: $refreshToken, idToken: $idToken, csrfToken: $csrfToken, accountRef: $ref}) {\n    __typename\n    ... on BankUser {\n      balances {\n        opening_balance\n      }\n      account {\n        id\n        accountRef\n        firstName\n        lastName\n        email\n      }\n      token\n    }\n    ... on BankUserSessionError {\n      error {\n        message\n        code\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'f959b0406b954603eab0cc481545f35f';
+(node as any).hash = 'de7d5590d237a8d5cff4908291e37236';
 export default node;

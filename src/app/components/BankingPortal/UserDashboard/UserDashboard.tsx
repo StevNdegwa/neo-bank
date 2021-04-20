@@ -21,6 +21,12 @@ const userDashboardQuery = graphql`
                 }
                 token
             }
+            ...on BankUserSessionError {
+                error {
+                    message
+                    code
+                }
+            }
         }
     }
 `;

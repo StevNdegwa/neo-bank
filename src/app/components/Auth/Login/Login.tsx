@@ -1,4 +1,4 @@
-import { FC, Suspense } from "react";
+import { FC, Suspense, useState } from "react";
 import { ReactSVG } from "react-svg";
 import { graphql } from "babel-plugin-relay/macro";
 import { GraphQLTaggedNode, useQueryLoader } from "react-relay";
@@ -11,16 +11,26 @@ import ValidateAccount from "./ValidateAccount/ValidateAccount";
 import Authn from "./Authn/Authn";
 import { LoginQuery } from "./__generated__/LoginQuery.graphql";
 import ErrorBoundary from "../../../ErrorBoundary";
+import LoginErrorFallback from "./LoginErrorFallback";
 
 export const loginQuery: GraphQLTaggedNode = graphql`
     query LoginQuery ($accountRef: String!) {
         account ( account: { accountRef: $accountRef} ){
-            id
-            firstName
-            lastName
-            email
-            accountRef
+            ...on UserAccount{
+                id
+                firstName
+                lastName
+                email
+                accountRef
+            }
+            ...on UserAccountNotFoundError{
+                error {
+                    message
+                    code
+                }
+            }
         }
+        
     }
 `;
 
@@ -29,13 +39,15 @@ export type LoginProps = {};
 const Login: FC<LoginProps> = ()=>{
     
     let [loginQueryRef, loadLoginData] = useQueryLoader<LoginQuery>(loginQuery);
+    let [authn, setAuthn] = useState(false);
     
     const onSubmitHandler = (data: any)=>{
         loadLoginData(data);
+        setAuthn(true);
     }
 
     const handleNoData = ()=>{
-        loginQueryRef = null;
+        setAuthn(false)
     }
 
     return (
@@ -49,15 +61,16 @@ const Login: FC<LoginProps> = ()=>{
                     <div className="text">Internet banking login</div>
                 </Header>
                 {
-                    !loginQueryRef ? 
+                    !authn ? 
                     <ValidateAccount validateAccount={onSubmitHandler}/> :
-                    <ErrorBoundary onRetry={handleNoData} fallback={({ error })=>(<div>{ `${ error }` }</div>)}>
-                        <Suspense fallback={
-                        <Info style={{ height:"200px" }}><PulseLoader loading={true} /></Info>
-                    }>
-                        <Authn loginQuery={loginQuery} loginQueryRef={loginQueryRef} />
-                    </Suspense>
-                    </ErrorBoundary>
+                    loginQueryRef &&
+                        <ErrorBoundary onRetry={handleNoData} fallback={({ error, retry })=>(<LoginErrorFallback error={error} tryAgain={retry} />)}>
+                            <Suspense fallback={
+                                <Info style={{ height:"200px" }}><PulseLoader loading={true} /></Info>
+                            }>
+                                <Authn loginQuery={loginQuery} loginQueryRef={loginQueryRef} setNoData={handleNoData}/>
+                            </Suspense>
+                        </ErrorBoundary>
                 }
             </Wrapper>
         </AuthLayout>

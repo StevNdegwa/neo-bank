@@ -3,7 +3,7 @@ import UserAccount from "./UserAccount";
 import UserAccountNotFoundError from "./UserAccountNotFoundError";
 
 const Account = new GraphQLUnionType({
-    name: "UserAccount",
+    name: "Account",
     description: "A registered user account",
     types: [UserAccount, UserAccountNotFoundError],
     resolveType: (value: any) => {

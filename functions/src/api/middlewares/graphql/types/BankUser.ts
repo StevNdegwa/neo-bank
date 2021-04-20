@@ -1,12 +1,12 @@
 import { GraphQLObjectType, GraphQLString } from "graphql";
-import Account from "./Account";
+import UserAccount from "./UserAccount";
 import BankBalances from "./BankBalances";
 
 const BankUser: GraphQLObjectType<any, any> = new GraphQLObjectType({
     name: "BankUser",
     description: "Bank user session data",
     fields: {
-        account: { type: Account },
+        account: { type: UserAccount },
         balances: { type: BankBalances },
         token: { type: GraphQLString }
     }

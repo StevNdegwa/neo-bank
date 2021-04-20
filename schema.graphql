@@ -18,8 +18,11 @@ type Query {
   ): [Node]!
 }
 
-"""A registered account"""
-type Account implements Node {
+"""A registered user account"""
+union Account = UserAccount | UserAccountNotFoundError
+
+"""A registered user account"""
+type UserAccount implements Node {
   """The ID of an object"""
   id: ID!
   accountRef: String!
@@ -34,6 +37,17 @@ interface Node {
   id: ID!
 }
 
+"""User account not found error"""
+type UserAccountNotFoundError {
+  error: ErrorResponse!
+}
+
+"""Error response"""
+type ErrorResponse {
+  message: String!
+  code: String!
+}
+
 """Verify account input"""
 input AccountInput {
   accountRef: String!
@@ -41,11 +55,11 @@ input AccountInput {
 }
 
 """Bank user session"""
-union BankUserSession = BankUser
+union BankUserSession = BankUser | BankUserSessionError
 
 """Bank user session data"""
 type BankUser {
-  account: Account
+  account: UserAccount
   balances: BankBalances
   token: String
 }
@@ -54,6 +68,11 @@ type BankUser {
 type BankBalances {
   opening_balance: Float!
   current_balance: Float
+}
+
+"""Bank user session error"""
+type BankUserSessionError {
+  error: ErrorResponse!
 }
 
 """Data required to successfully login to application"""

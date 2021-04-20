@@ -3,9 +3,9 @@ import { globalIdField } from "graphql-relay";
 import { nodeInterface } from "./NodeInterface";
 
 const UserAccount: GraphQLObjectType<any, any> = new GraphQLObjectType({
-    name: "Account",
+    name: "UserAccount",
     interfaces: [ nodeInterface ],
-    description: "A registered account",
+    description: "A registered user account",
     fields: {
         id: globalIdField("Account"),
         accountRef: { type: GraphQLNonNull(GraphQLString) },

@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PageLayout from "../../layouts/PageLayout";
 import Sidebar from "./Sidebar";
 import UserDashboard from "./UserDashboard";
-import { Header, Content, Main } from "./styles";
+import Header from "./Header";
+import { Content, Main } from "./styles";
 
 export type BankingPortalProps = {
   user: any;
@@ -16,7 +17,7 @@ const BankingPortal: React.FC<BankingPortalProps> = ({ user }) => {
     <PageLayout>
         <Sidebar />
         <Content>
-          <Header></Header>
+          <Header/>
           <Main>
             <Router>
               <Switch>

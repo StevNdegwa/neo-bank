@@ -10,7 +10,7 @@ const AuthLayout: FC<{ children: JSX.Element }> = ({ children })=>{
     return (
         <Wrapper>
             <Header>
-                <Action onClick={()=>history.goBack()} >
+                <Action className="transparent" onClick={()=>history.goBack()} >
                     <MdNavigateBefore/>
                 </Action>
             </Header>

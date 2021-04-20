@@ -35,6 +35,9 @@
     &.rounded {
         border-radius: 6px;
     }
+    &.transparent{
+        background-color: transparent;
+    }
     &.outline {
         &.primary {
             color: $v_100_dark;

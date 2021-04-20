@@ -1,20 +1,16 @@
 import { GraphQLUnionType } from "graphql";
 import BankUser from "./BankUser";
+import BankUserSessionError from "./BankUserSessionError";
 
 const BankUserSession: GraphQLUnionType = new GraphQLUnionType({
     name:"BankUserSession",
     description: "Bank user session",
-    types: [ BankUser ],
+    types: [ BankUser, BankUserSessionError ],
     resolveType: (value: any)=>{//Adde error onject
-        /**
-         *  if( !value.errors ) {
-         *       return BankUser
-         *  } else {
-         *       return null;
-        *  }
-        **/
-        console.log(value)
-        return BankUser
+        if(value.token){
+            return BankUser
+        }
+        return BankUserSessionError;
     }
 })
 

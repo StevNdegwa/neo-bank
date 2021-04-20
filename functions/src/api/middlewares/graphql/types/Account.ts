@@ -1,18 +1,18 @@
-import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
-import { globalIdField } from "graphql-relay";
-import { nodeInterface } from "./NodeInterface";
+import { GraphQLUnionType } from "graphql";
+import UserAccount from "./UserAccount";
+import UserAccountNotFoundError from "./UserAccountNotFoundError";
 
-const Account: GraphQLObjectType<any, any> = new GraphQLObjectType({
-    name: "Account",
-    interfaces: [ nodeInterface ],
-    description: "A registered account",
-    fields: {
-        id: globalIdField("Account"),
-        accountRef: { type: GraphQLNonNull(GraphQLString) },
-        firstName: { type: GraphQLString },
-        lastName: { type: GraphQLString },
-        email: { type: GraphQLString }
+const Account = new GraphQLUnionType({
+    name: "UserAccount",
+    description: "A registered user account",
+    types: [UserAccount, UserAccountNotFoundError],
+    resolveType: (value: any) => {
+        if (value.accountRef) {
+            return UserAccount;
+        }
+        
+        return UserAccountNotFoundError;
     }
-})
+});
 
 export default Account;

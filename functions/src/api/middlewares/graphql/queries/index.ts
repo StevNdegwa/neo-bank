@@ -1,4 +1,4 @@
-import { GraphQLError, GraphQLFieldConfigMap, Thunk } from "graphql";
+import { GraphQLFieldConfigMap, Thunk } from "graphql";
 import * as jwt from "jsonwebtoken";
 import { bankAccountDB, bankAccountBalancesDB } from "../../../helpers/firebase";
 
@@ -13,21 +13,36 @@ const queries: Thunk<GraphQLFieldConfigMap<unknown, any>> = {
         description: "Registered account",
         args: { account: { type: types.AccountInput } },
         resolve: async (_: unknown, args: any, context: any) => {
-            let account = await bankAccountDB().get(args.account.accountRef);
+            try {
+                let account = await bankAccountDB().get(args.account.accountRef);
 
-            if (!account) {
-                throw new GraphQLError("Account not found");
+                if (!account.id) {
+                    return {
+                        error: {
+                            message: "User account does not exist",
+                            code: "USER_ACC_DOES_NOT_EXIST"
+                        }
+                    }
+                }
+
+                let { id, firstName, lastName, email } = account;
+
+                return {
+                    id,
+                    accountRef: id,
+                    firstName,
+                    lastName,
+                    email
+                };
+
+            } catch (error) {
+                return {
+                    error: {
+                        message: `${error}`,
+                        code: "SERVER_ERROR"
+                    }
+                }
             }
-
-            let { id, firstName, lastName, email } = account;
-
-            return {
-                id,
-                accountRef: id,
-                firstName,
-                lastName,
-                email
-            };
         }
     },
     sessionLogin: {
@@ -67,8 +82,12 @@ const queries: Thunk<GraphQLFieldConfigMap<unknown, any>> = {
                     token
                 };
             } catch (error) {
-                console.log(error);
-                throw error;
+                return {
+                    error:{
+                        message: `${error}`,
+                        code: "SERVER_ERROR"
+                    }
+                }
             }
         }
     },

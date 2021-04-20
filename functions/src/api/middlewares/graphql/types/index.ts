@@ -4,6 +4,8 @@ import RegisterAccountInput from "./RegisterAccountInput";
 import AccountLoginInput from "./AccountLoginInput";
 import BankUserSession from "./BankUserSession";
 import BankBalances from "./BankBalances";
+import UserAccount from "./UserAccount";
+import UserAccountNotFoundError from "./UserAccountNotFoundError";
 
 export default { 
     Account,
@@ -11,5 +13,7 @@ export default {
     AccountLoginInput,
     BankUserSession,
     BankBalances,
-    AccountInput
+    AccountInput,
+    UserAccount,
+    UserAccountNotFoundError
 }

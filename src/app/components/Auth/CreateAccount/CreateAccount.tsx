@@ -4,16 +4,23 @@ import { useForm } from "react-hook-form";
 import AuthLayout from "../../../layouts/AuthLayout";
 import { TextInput } from "../../Inputs";
 import { Form, Wrapper } from "./styles";
+import  commitCreateAccountMutation from "./commitCreateAccount";
+import { useRelayEnvironment } from "react-relay";
 
 export type CreateAccountProps = { };
 
 const CreateAccount: React.FC = ()=>{
-    const { register } = useForm();
+    const { register, handleSubmit } = useForm();
+    const environment = useRelayEnvironment();
+
+    const onSubmit = (data:any)=>{
+        commitCreateAccountMutation(environment, data);
+    }
 
     return (
         <AuthLayout>
             <Wrapper>
-                <Form>
+                <Form onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <TextInput register={register("firstName")} name="firstname" label="First name" className="auth" placeholder="First name"/>
                     </div>

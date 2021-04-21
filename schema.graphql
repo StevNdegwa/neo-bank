@@ -88,8 +88,15 @@ type Mutation {
 }
 
 type registerAccountPayload {
-  registerAccount: Account
+  registerAccount: RegisterAccount
   clientMutationId: String
+}
+
+union RegisterAccount = UserAccount | RegisterAccountError
+
+"""Error registering account"""
+type RegisterAccountError {
+  error: ErrorResponse!
 }
 
 input registerAccountInput {
@@ -102,4 +109,5 @@ input RegisterAccountInput {
   firstName: String!
   lastName: String!
   email: String!
+  password: String!
 }

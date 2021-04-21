@@ -31,7 +31,7 @@ class Firestore {
             register: async ({ firstName, lastName, email }: BankAcc) => {
                 let { id } = await Firestore.getLastField(collection);
                 
-                let newId = `${firstName[0]}${lastName[0]}${parseInt(id.slice(2))+1}`;
+                let newId = `${firstName.slice(0,2)}${lastName.slice(0,2)}${parseInt(id.slice(4)) + 1}`.toUpperCase();
 
                 return collection
                     .doc(newId)

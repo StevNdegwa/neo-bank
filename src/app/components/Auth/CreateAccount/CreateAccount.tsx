@@ -1,16 +1,24 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useRelayEnvironment } from "react-relay";
 
 import AuthLayout from "../../../layouts/AuthLayout";
-import { TextInput } from "../../Inputs";
 import { Form, Wrapper } from "./styles";
 import  commitCreateAccountMutation from "./commitCreateAccount";
-import { useRelayEnvironment } from "react-relay";
+import Main from "./Main";
+import Footer from "./Footer";
+
 
 export type CreateAccountProps = { };
 
+export enum Pages {
+    DETAILS = "USER_DETAILS",
+    PROFILE = "USER_PROFILE"
+}
+
 const CreateAccount: React.FC = ()=>{
-    const { register, handleSubmit } = useForm();
+    const [page, setPage] = useState<Pages>(Pages.DETAILS);
+    const methods = useForm();
     const environment = useRelayEnvironment();
 
     const onSubmit = (data:any)=>{
@@ -20,20 +28,12 @@ const CreateAccount: React.FC = ()=>{
     return (
         <AuthLayout>
             <Wrapper>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                    <div>
-                        <TextInput register={register("firstName")} name="firstname" label="First name" className="auth" placeholder="First name"/>
-                    </div>
-                    <div>
-                        <TextInput  register={register("lastName")} name="lastName" label="Last name" className="auth" placeholder="Last name"/>
-                    </div>
-                    <div style={{width:"100%"}}>
-                        <TextInput  register={register("email")} name="email" label="Email" className="auth" placeholder="Email address"/>
-                    </div>
-                    <div>
-                        <button type="submit" className="filled primary rounded medium">Create Account</button>
-                    </div>
-                </Form>
+                <FormProvider { ...methods}>
+                    <Form onSubmit={methods.handleSubmit(onSubmit)}>
+                        <Main page={page}/>
+                        <Footer page={page} setPage={setPage}/>
+                    </Form>
+                </FormProvider>
             </Wrapper>
         </AuthLayout>
     )

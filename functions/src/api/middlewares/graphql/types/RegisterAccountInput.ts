@@ -7,7 +7,8 @@ const RegisterAccountInput = new GraphQLInputObjectType({
         firstName: { type: GraphQLNonNull(GraphQLString) },
         lastName: { type: GraphQLNonNull(GraphQLString) },
         email: { type: GraphQLNonNull(GraphQLString) },
-        password: { type: GraphQLNonNull(GraphQLString) }
+        password: { type: GraphQLNonNull(GraphQLString) },
+        userName: { type: GraphQLNonNull(GraphQLString) }
     }
 })
 

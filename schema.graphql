@@ -110,4 +110,5 @@ input RegisterAccountInput {
   lastName: String!
   email: String!
   password: String!
+  userName: String!
 }

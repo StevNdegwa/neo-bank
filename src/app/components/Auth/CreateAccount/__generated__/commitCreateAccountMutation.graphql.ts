@@ -8,6 +8,7 @@ export type RegisterAccountInput = {
     lastName: string;
     email: string;
     password: string;
+    userName: string;
 };
 export type commitCreateAccountMutationVariables = {
     account: RegisterAccountInput;

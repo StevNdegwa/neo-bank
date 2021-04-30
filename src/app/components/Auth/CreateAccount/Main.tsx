@@ -1,4 +1,4 @@
-import { FC, MouseEvent } from "react";
+import { FC } from "react";
 import { useFormContext } from "react-hook-form";
 import { PasswordInput, TextInput } from "../../Inputs";
 import { Pages } from "./CreateAccount";

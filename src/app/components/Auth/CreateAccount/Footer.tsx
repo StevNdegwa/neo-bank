@@ -18,7 +18,7 @@ const Footer:FC<FooterProps> = ({ page, setPage })=>{
                 
                 return (
                     <div>
-                        <a onClick={nextClick} className="button-look filled primary rounded medium" href="">
+                        <a onClick={nextClick} className="button-look filled primary rounded medium" href="/">
                             Next
                         </a>
                     </div>
@@ -27,7 +27,12 @@ const Footer:FC<FooterProps> = ({ page, setPage })=>{
 
                 return (
                     <div>
-                        <a onClick={(evt)=>{ evt.preventDefault(); setPage(Pages.DETAILS) }} style={{marginRight:"10px"}} className="button-look filled primary rounded medium">
+                        <a 
+                            onClick={(evt)=>{ evt.preventDefault(); setPage(Pages.DETAILS) }} 
+                            style={{marginRight:"10px"}} 
+                            className="button-look filled primary rounded medium"
+                            href="/"
+                            >
                             Back
                         </a>
                         <button type="submit" className="filled primary rounded large">

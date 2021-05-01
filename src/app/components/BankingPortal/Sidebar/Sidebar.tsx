@@ -1,103 +1,68 @@
-import React, { FC, ReactElement, useState } from "react";
-import { MdAccountBalanceWallet, MdMenu, MdChevronRight } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import {
+  MdAccountBalanceWallet,
+  MdMenu,
+  MdPayment,
+  MdPeople,
+  MdPublic,
+  MdAccountBalance,
+} from "react-icons/md";
+
 import {
   Wrapper,
   Action,
   OverLay,
-  Dir,
   NeoBank,
   MainLinks,
-  DirLinks,
   Drawer,
   Actions,
 } from "./styles";
 
 import routes from "../../../config/routes";
 
-import useSidebarLinks from "./useSidebarLinks";
+import { History, MainLink, Showing } from "./elements";
 
 const Sidebar = () => {
   const [showOverlay, setShowOverLay] = useState<boolean>(false);
-  const [links, setLinks] = useState([]);
   const [layers, setLayers] = useState([]);
-
-  const MainLink = ({ link }: any) => (
-    <Dir
-      onClick={
-        ()=>{
-          setLayers((layers)=>(layers.concat(link)))
-          setLinks(link.links)
-        }
-      }
-      >{link.label} <MdChevronRight/></Dir>
-  );
-
-  const SubLink = ({link}:any)=>(
-    <Dir>{link.label}</Dir>
-  )
-
-  const Showing = ()=>{
-    return (
-      <>
-        {
-          links.map((link:any)=>{
-            if(link.links){
-              return (<MainLink link={link} />)
-            }
-            return (<SubLink link={link} />);
-          })
-        }
-      </>
-    )
-  }
+  const [active, setActive] = useState<string>("accounts");
 
   return (
     <>
       <Wrapper showing={showOverlay}>
         <Actions>
-          <Action onClick={() => setShowOverLay((s) => !s)}>
-            <MdMenu />
-          </Action>
-          <Action>
-            <MdAccountBalanceWallet />
-          </Action>
+          <Action onClick={() => setShowOverLay((s) => !s)}><MdMenu /></Action>
+          <Action active={active === "accounts"}><MdAccountBalanceWallet /></Action>
+          <Action active={active === "payments"}><MdPayment/></Action>
+          <Action active={active === "beneficiary"}><MdPeople/></Action>
+          <Action active={active === "service-requests"}><MdPublic/></Action>
+          <Action active={active === "personal-financial-management"}><MdAccountBalance/></Action>
         </Actions>
         <Drawer>
           <NeoBank>NEO BANK</NeoBank>
           {
-            !layers.length ?
-            <MainLinks show={!layers.length}>
-              <MainLink link={routes.get("payments")}/>
-            </MainLinks> :
-            <>
-              {layers.map((layer: any) => {
-              return <MainLink link={layer}/>;
-            })}
-            <Showing/>
-            </>
+            !layers.length ? (
+              <MainLinks show={!layers.length}>
+                <MainLink setActive={()=>setActive("accounts")} setLayers={setLayers} link={routes.get("accounts")}/>
+                <MainLink setActive={()=>setActive("payments")} setLayers={setLayers} link={routes.get("payments")}/>
+                <MainLink setActive={()=>setActive("beneficiary")} setLayers={setLayers} link={routes.get("beneficiary")}/>
+                <MainLink setActive={()=>setActive("service-requests")}  setLayers={setLayers} link={routes.get("service-requests")}/>
+                <MainLink setActive={()=>setActive("personal-financial-management")} setLayers={setLayers} link={routes.get("personal-financial-management")}/>
+              </MainLinks>
+            ) : (
+              <>
+                {
+                  layers.map((layer: any, index: number) => (
+                    <History key={index} setLayers={setLayers} index={index} link={layer} />
+                  ))
+                }
+                <Showing layers={layers} setLayers={setLayers} />
+              </>
+            )
           }
         </Drawer>
       </Wrapper>
       <OverLay show={showOverlay} onClick={() => setShowOverLay(false)} />
-    </>
-  );
-};
-
-const SideLink: FC<{ link: any }> = ({ link }) => {
-  return (
-    <>
-      <Dir>
-        <NavLink to={link.url}>{link.label}</NavLink>
-      </Dir>
-      <DirLinks show={true}>
-        {link.links &&
-          link.links.map((link: any, idx: any) => (
-            <li key={idx}>
-              <NavLink to={link.url}>{link.label}</NavLink>
-            </li>
-          ))}
-      </DirLinks>
     </>
   );
 };

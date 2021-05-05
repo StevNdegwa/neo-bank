@@ -22,7 +22,7 @@ export const SubLink = ({ link }: any) => (
   <Dir>
     <div>
       <div className="label">
-        <NavLink to={link.url}>{link.label}</NavLink>
+        <NavLink to={link.url} className="bar">{link.label}</NavLink>
       </div>
     </div>
   </Dir>

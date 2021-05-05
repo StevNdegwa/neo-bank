@@ -13,7 +13,6 @@ import {
   Action,
   OverLay,
   NeoBank,
-  MainLinks,
   Drawer,
   Actions,
 } from "./styles";
@@ -29,7 +28,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <Wrapper showing={showOverlay}>
+      <Wrapper>
         <Actions>
           <Action onClick={() => setShowOverLay((s) => !s)}><MdMenu /></Action>
           <Action active={active === "accounts"}><MdAccountBalanceWallet /></Action>
@@ -38,17 +37,17 @@ const Sidebar = () => {
           <Action active={active === "service-requests"}><MdPublic/></Action>
           <Action active={active === "personal-financial-management"}><MdAccountBalance/></Action>
         </Actions>
-        <Drawer>
+        <Drawer showing={showOverlay}>
           <NeoBank>NEO BANK</NeoBank>
           {
             !layers.length ? (
-              <MainLinks show={!layers.length}>
+              <div>
                 <MainLink setActive={()=>setActive("accounts")} setLayers={setLayers} link={routes.get("accounts")}/>
                 <MainLink setActive={()=>setActive("payments")} setLayers={setLayers} link={routes.get("payments")}/>
                 <MainLink setActive={()=>setActive("beneficiary")} setLayers={setLayers} link={routes.get("beneficiary")}/>
                 <MainLink setActive={()=>setActive("service-requests")}  setLayers={setLayers} link={routes.get("service-requests")}/>
                 <MainLink setActive={()=>setActive("personal-financial-management")} setLayers={setLayers} link={routes.get("personal-financial-management")}/>
-              </MainLinks>
+              </div>
             ) : (
               <>
                 {

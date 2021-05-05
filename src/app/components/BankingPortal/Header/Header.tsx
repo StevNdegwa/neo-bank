@@ -1,7 +1,8 @@
 import { MdPowerSettingsNew } from "react-icons/md";
-import { Wrapper, Action, ConfirmExit } from "./styles";
 import { useHistory } from "react-router-dom";
 import Modal, { useModal } from "../../Modal";
+import { loginSession } from "../UserDashboard/retain";
+import { Wrapper, Action, ConfirmExit } from "./styles";
 
 
 const Header = ()=>{
@@ -14,6 +15,7 @@ const Header = ()=>{
 
     const handleConfimClick = ()=>{
         closeModal();
+        loginSession.dispose();
         return history.push("/retail-login", { user:null });
     }
 

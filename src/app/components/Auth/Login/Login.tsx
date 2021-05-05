@@ -42,7 +42,7 @@ const Login: FC<LoginProps> = ()=>{
     let [authn, setAuthn] = useState(false);
     
     const onSubmitHandler = (data: any)=>{
-        loadLoginData(data);
+        loadLoginData(data, { fetchPolicy:"network-only" });
         setAuthn(true);
     }
 

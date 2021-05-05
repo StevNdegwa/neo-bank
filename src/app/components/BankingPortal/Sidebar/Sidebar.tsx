@@ -11,12 +11,13 @@ import {
 import {
   Wrapper,
   Action,
-  OverLay,
   NeoBank,
   Drawer,
   Actions,
 } from "./styles";
 
+
+import { OverLay } from "../styles";
 import routes from "../../../config/routes";
 
 import { History, MainLink, Showing } from "./elements";

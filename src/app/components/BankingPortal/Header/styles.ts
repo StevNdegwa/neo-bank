@@ -21,3 +21,27 @@ color: ${colors.v_100};
     stroke-width:1;
 }
 `;
+
+export const ConfirmExit = styled.div`
+width:400px;
+&>header, footer{
+    height:60px;
+    line-height:60px;
+    padding:10px 20px;
+    font-weight:600;
+}
+&>footer, main{
+    display:flex;
+}
+&>header{
+    font-size:1.3em;
+}
+&>main{
+    height:100px;
+    justify-content:center;
+    align-items:center;
+}
+&>footer{
+    justify-content:flex-end;
+}
+`

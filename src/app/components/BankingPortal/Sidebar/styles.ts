@@ -9,9 +9,9 @@ height:100%;
 position:absolute;
 z-index:600;
 display:flex;
-background-color: ${colors.w};
 user-select:none;
 font-weight:600;
+background-color: ${colors.w};
 `;
 
 export const Drawer = styled.div`
@@ -110,24 +110,10 @@ padding:5px;
 export const NeoBank = styled.div`
 height:60px;
 line-height:60px;
-background-image:${colors.vertical_gradient};
-color:${colors.w};
 text-align:center;
 font-size:2rem;
 font-weight:800;
 text-shadow:0px 0px 2px ${colors.w};
+background-image:${colors.vertical_gradient};
+color:${colors.w};
 `;
-
-export const OverLay = styled.div`
-position:absolute;
-z-index:400;
-top:0;
-left:0;
-width:100%;
-height:100%;
-display:none;
-background-color:rgba(0,0,0,0.5);
-${({ show }: { show: boolean }) => show && css`
-    display:block;
-`}
-`

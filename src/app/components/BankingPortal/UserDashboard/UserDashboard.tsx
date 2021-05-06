@@ -1,6 +1,10 @@
 import { FC } from "react";
 import { Wrapper } from "./styles";
 import { usePreloadedQuery } from "react-relay";
+import LastTransactions from "./LastTransactions";
+import MyDashboard from "./MyDashboard";
+import Welcome from "./Welcome";
+import Favourites from "./Favourites";
 
 export interface UserDashboardProps {
     dashboardQueryRef:any,
@@ -14,7 +18,10 @@ const UserDashboard: FC<UserDashboardProps> = ({ dashboardQuery, dashboardQueryR
     
     return (
         <Wrapper>
-            User dashboard
+            <LastTransactions/>
+            <Welcome/>
+            <MyDashboard/>
+            <Favourites/>
         </Wrapper>
     )
 }

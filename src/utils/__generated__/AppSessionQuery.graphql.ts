@@ -3,13 +3,13 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type UserDashboardQueryVariables = {
+export type AppSessionQueryVariables = {
     refreshToken: string;
     idToken: string;
     csrfToken: string;
     ref: string;
 };
-export type UserDashboardQueryResponse = {
+export type AppSessionQueryResponse = {
     readonly sessionLogin: {
         readonly balances?: {
             readonly opening_balance: number;
@@ -28,15 +28,15 @@ export type UserDashboardQueryResponse = {
         };
     } | null;
 };
-export type UserDashboardQuery = {
-    readonly response: UserDashboardQueryResponse;
-    readonly variables: UserDashboardQueryVariables;
+export type AppSessionQuery = {
+    readonly response: AppSessionQueryResponse;
+    readonly variables: AppSessionQueryVariables;
 };
 
 
 
 /*
-query UserDashboardQuery(
+query AppSessionQuery(
   $refreshToken: String!
   $idToken: String!
   $csrfToken: String!
@@ -236,7 +236,7 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "UserDashboardQuery",
+    "name": "AppSessionQuery",
     "selections": [
       {
         "alias": null,
@@ -264,7 +264,7 @@ return {
       (v2/*: any*/)
     ],
     "kind": "Operation",
-    "name": "UserDashboardQuery",
+    "name": "AppSessionQuery",
     "selections": [
       {
         "alias": null,
@@ -289,14 +289,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "06e98c4cb4a634d7509deb628d477821",
+    "cacheID": "30c5fb5c8eab0ed1c310c323311f117f",
     "id": null,
     "metadata": {},
-    "name": "UserDashboardQuery",
+    "name": "AppSessionQuery",
     "operationKind": "query",
-    "text": "query UserDashboardQuery(\n  $refreshToken: String!\n  $idToken: String!\n  $csrfToken: String!\n  $ref: String!\n) {\n  sessionLogin(login: {refreshToken: $refreshToken, idToken: $idToken, csrfToken: $csrfToken, accountRef: $ref}) {\n    __typename\n    ... on BankUser {\n      balances {\n        opening_balance\n      }\n      account {\n        id\n        accountRef\n        firstName\n        lastName\n        email\n      }\n      token\n    }\n    ... on BankUserSessionError {\n      error {\n        message\n        code\n      }\n    }\n  }\n}\n"
+    "text": "query AppSessionQuery(\n  $refreshToken: String!\n  $idToken: String!\n  $csrfToken: String!\n  $ref: String!\n) {\n  sessionLogin(login: {refreshToken: $refreshToken, idToken: $idToken, csrfToken: $csrfToken, accountRef: $ref}) {\n    __typename\n    ... on BankUser {\n      balances {\n        opening_balance\n      }\n      account {\n        id\n        accountRef\n        firstName\n        lastName\n        email\n      }\n      token\n    }\n    ... on BankUserSessionError {\n      error {\n        message\n        code\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'de7d5590d237a8d5cff4908291e37236';
+(node as any).hash = '1d3f95e5e72dd2002777999f8971e12e';
 export default node;

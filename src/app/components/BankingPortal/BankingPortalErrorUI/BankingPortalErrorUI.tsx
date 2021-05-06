@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Redirect } from "react-router-dom";
 import { EBFallBack } from "../../../types";
 
 
@@ -7,11 +8,10 @@ export interface BankingPortalErrorUIProps extends EBFallBack {
 }
 
 const BankingPortalErrorUI: FC<BankingPortalErrorUIProps> = ({ error })=>{
-  return (
-    <div>
-      { `${error}` }
-    </div>
-  )
+  if(error){
+    return <Redirect to="/retail-login"/>  
+  }
+  return <Redirect to="/"/>
 }
 
 export default BankingPortalErrorUI;

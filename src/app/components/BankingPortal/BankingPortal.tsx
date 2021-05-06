@@ -5,28 +5,36 @@ import Sidebar from "./Sidebar";
 import UserDashboard from "./UserDashboard";
 import Header from "./Header";
 import { Content, Main } from "./styles";
+import PortalSessionContext from "./PortalSessionContext";
+import AppSession from "../../../utils/AppSession";
 
 export type BankingPortalProps = {
   user: any;
 };
 
+const appSession = new AppSession();
+const [ dashboardQueryRef, dashboardQuery ] = appSession.initializeApp();
+
 const BankingPortal: React.FC<BankingPortalProps> = ({ user }) => {
-  console.log(user);
 
   return (
-    <PageLayout>
+    <PortalSessionContext.Provider value={appSession}>
+      <PageLayout>
         <Sidebar />
         <Content>
-          <Header/>
+          <Header />
           <Main>
             <Router>
               <Switch>
-                <Route path="/" component={UserDashboard} />
+                <Route path="/">
+                  <UserDashboard  dashboardQueryRef={dashboardQueryRef} dashboardQuery={dashboardQuery}/>
+                </Route>
               </Switch>
             </Router>
           </Main>
         </Content>
-    </PageLayout>
+      </PageLayout>
+    </PortalSessionContext.Provider>
   );
 };
 

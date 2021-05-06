@@ -4,6 +4,7 @@ import { GraphQLTaggedNode, PreloadedQuery, usePreloadedQuery } from "react-rela
 import { Link, useHistory } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
 
+import AppAuth from "../../../../../utils/AppAuth";
 import type { LoginQuery } from "../__generated__/LoginQuery.graphql";
 import FirebaseContext from "../../../../FirebaseContext";
 import { PasswordInput, TextInput } from "../../../Inputs";
@@ -39,8 +40,11 @@ const Authn: FC<AuthnProps> = ({ loginQueryRef, loginQuery, setNoData }) => {
         refreshToken: result?.refreshToken,
         accountRef: data.accountRef
       };
-      
-      history.push("/user-home", { user });
+
+      return Promise.all([
+        AppAuth.login(user),
+        history.push("/user-home", { user })
+      ])
     } catch (error) {
       setError(error);
     }

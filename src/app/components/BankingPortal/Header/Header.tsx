@@ -1,21 +1,23 @@
 import { MdPowerSettingsNew } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import Modal, { useModal } from "../../Modal";
-import { loginSession } from "../UserDashboard/retain";
 import { Wrapper, Action, ConfirmExit } from "./styles";
+import PortalSessionContext from "../PortalSessionContext";
+import { useContext } from "react";
 
 
 const Header = ()=>{
     const { isOpen, closeModal, openModal } = useModal();
     const history = useHistory();
-    
+    const portalSessionContext = useContext(PortalSessionContext);
+
     const exitApplication = ()=>{
         return openModal();
     }
 
     const handleConfimClick = ()=>{
         closeModal();
-        loginSession.dispose();
+        portalSessionContext?.killApp();
         return history.push("/retail-login", { user:null });
     }
 

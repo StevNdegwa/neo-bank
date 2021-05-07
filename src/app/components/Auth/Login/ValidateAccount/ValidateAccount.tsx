@@ -11,7 +11,7 @@ const ValidateAccount: React.FC<ValidateAccountProps> = ({
   return (
     <Form autoComplete="off" onSubmit={handleSubmit(validateAccount)}>
       <TextInput
-        register = {register("accountRef", {required: true })}
+        register = {register("accountRef", { required: true , setValueAs: (v:string)=>v.toUpperCase()})}
         name="accountRef"
         label="Account id"
         className="auth"

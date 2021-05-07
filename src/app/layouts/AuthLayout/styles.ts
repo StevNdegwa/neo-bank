@@ -30,7 +30,12 @@ background-color:${colors.c_100};
 export const Action = styled.button`
 height:100%;
 &>.neo-bank-react-icons{
-    width:1.2em;
-    stroke-width:5px;
+    width:40px;
+    height:60px;
+    background-color:transparent;
+    transition: background-color 200;
+    &:hover{
+        background-color:${colors.c_10};
+    }
 }
 `;

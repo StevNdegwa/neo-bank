@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useHistory } from "react-router-dom";
-import { MdNavigateBefore } from "react-icons/md";
+import { MdHome } from "react-icons/md";
 
 import {Wrapper, Action, Header, Main, Footer} from "./styles";
 
@@ -10,8 +10,8 @@ const AuthLayout: FC<{ children: JSX.Element }> = ({ children })=>{
     return (
         <Wrapper>
             <Header>
-                <Action className="transparent" onClick={()=>history.goBack()} >
-                    <MdNavigateBefore/>
+                <Action className="transparent" onClick={()=>history.push("/")} >
+                    <MdHome/>
                 </Action>
             </Header>
             <Main>

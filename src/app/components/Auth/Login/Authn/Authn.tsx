@@ -45,6 +45,7 @@ const Authn: FC<AuthnProps> = ({ loginQueryRef, loginQuery, setNoData }) => {
         AppAuth.login(user),
         history.push("/user-home", { user })
       ])
+      
     } catch (error) {
       setError(error);
     }

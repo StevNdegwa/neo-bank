@@ -2,11 +2,13 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import PageLayout from "../../layouts/PageLayout";
 import Sidebar from "./Sidebar";
-import UserDashboard from "./UserDashboard";
 import Header from "./Header";
 import { Content, Main } from "./styles";
 import PortalSessionContext from "./PortalSessionContext";
 import AppSession from "../../../utils/AppSession";
+
+import UserDashboard from "./UserDashboard";
+import Accounts from "./Accounts";
 
 export type BankingPortalProps = {
   user: any;
@@ -26,6 +28,7 @@ const BankingPortal: React.FC<BankingPortalProps> = ({ user }) => {
           <Main>
             <Router>
               <Switch>
+                <Route path="/accounts/accounts-summary" component={Accounts} />
                 <Route path="/">
                   <UserDashboard  dashboardQueryRef={dashboardQueryRef} dashboardQuery={dashboardQuery}/>
                 </Route>

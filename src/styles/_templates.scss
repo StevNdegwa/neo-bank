@@ -27,6 +27,7 @@
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
+    user-select: none;
     &.medium {
         padding: 1em 1.5em;
     }

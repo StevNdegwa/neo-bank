@@ -27,8 +27,8 @@ function App() {
               <Route path="/create-acount" component={Auth.CreateAccount} />
               <Route path="/retail-login" component={Auth.Login} />
               <Route
-                path="/user-home"
-                render={({ location }) => {
+                path="/banking"
+                render={({ location, match }) => {
                   return (
                     <ErrorBoundary
                       fallback={({ error } : EBFallBack) => (
@@ -48,7 +48,7 @@ function App() {
                           </Center>
                         }
                       >
-                        <BankingPortal user={location?.state} />
+                        <BankingPortal match={match} />
                       </Suspense>
                     </ErrorBoundary>
                   );

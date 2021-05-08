@@ -2,10 +2,10 @@ export default new Map([
     [
         "accounts",
         {
-            url: "/accounts",
+            url: "/banking/accounts",
             label: "Accounts",
             links: [
-                { url: "/accounts/accounts-summary", label: "Account Summary" },
+                { url: "/banking/accounts-summary/", label: "Account Summary" },
                 { url: "/accounts/transaction-accounts", label: "Transaction Accounts" },
                 { url: "/accounts/deposits", label: "Deposits" },
                 { url: "/accounts/loans", label: "Loans" },

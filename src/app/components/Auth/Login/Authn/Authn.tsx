@@ -43,7 +43,7 @@ const Authn: FC<AuthnProps> = ({ loginQueryRef, loginQuery, setNoData }) => {
 
       return Promise.all([
         AppAuth.login(user),
-        history.push("/user-home", { user })
+        history.push("/banking", { user })
       ])
       
     } catch (error) {

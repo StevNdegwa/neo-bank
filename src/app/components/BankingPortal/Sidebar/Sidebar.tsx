@@ -18,7 +18,7 @@ import {
 
 
 import { OverLay } from "../styles";
-import routes from "../../../config/routes";
+import links from "../../../config/links";
 
 import { History, MainLink, Showing } from "./elements";
 
@@ -43,11 +43,11 @@ const Sidebar = () => {
           {
             !layers.length ? (
               <div>
-                <MainLink setActive={()=>setActive("accounts")} setLayers={setLayers} link={routes.get("accounts")}/>
-                <MainLink setActive={()=>setActive("payments")} setLayers={setLayers} link={routes.get("payments")}/>
-                <MainLink setActive={()=>setActive("beneficiary")} setLayers={setLayers} link={routes.get("beneficiary")}/>
-                <MainLink setActive={()=>setActive("service-requests")}  setLayers={setLayers} link={routes.get("service-requests")}/>
-                <MainLink setActive={()=>setActive("personal-financial-management")} setLayers={setLayers} link={routes.get("personal-financial-management")}/>
+                <MainLink setActive={()=>setActive("accounts")} setLayers={setLayers} link={links.get("accounts")}/>
+                <MainLink setActive={()=>setActive("payments")} setLayers={setLayers} link={links.get("payments")}/>
+                <MainLink setActive={()=>setActive("beneficiary")} setLayers={setLayers} link={links.get("beneficiary")}/>
+                <MainLink setActive={()=>setActive("service-requests")}  setLayers={setLayers} link={links.get("service-requests")}/>
+                <MainLink setActive={()=>setActive("personal-financial-management")} setLayers={setLayers} link={links.get("personal-financial-management")}/>
               </div>
             ) : (
               <>

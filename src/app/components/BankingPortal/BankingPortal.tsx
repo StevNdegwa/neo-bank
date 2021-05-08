@@ -1,24 +1,23 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
+import AppSession from "../../../utils/AppSession";
 import PageLayout from "../../layouts/PageLayout";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { Content, Main } from "./styles";
 import PortalSessionContext from "./PortalSessionContext";
-import AppSession from "../../../utils/AppSession";
 
-import UserDashboard from "./UserDashboard";
-import Accounts from "./Accounts";
+import routes from "./routes";
+
+export const appSession = new AppSession();
+export const appConfig = appSession.initializeApp()
 
 export type BankingPortalProps = {
-  user: any;
+  match: any;
 };
 
-const appSession = new AppSession();
-const [ dashboardQueryRef, dashboardQuery ] = appSession.initializeApp();
-
-const BankingPortal: React.FC<BankingPortalProps> = ({ user }) => {
-
+const BankingPortal: React.FC<BankingPortalProps> = ({ match }) => {
+  
   return (
     <PortalSessionContext.Provider value={appSession}>
       <PageLayout>
@@ -26,14 +25,18 @@ const BankingPortal: React.FC<BankingPortalProps> = ({ user }) => {
         <Content>
           <Header />
           <Main>
-            <Router>
-              <Switch>
-                <Route path="/accounts/accounts-summary" component={Accounts} />
-                <Route path="/">
-                  <UserDashboard  dashboardQueryRef={dashboardQueryRef} dashboardQuery={dashboardQuery}/>
-                </Route>
-              </Switch>
-            </Router>
+            <Switch>
+              {
+                Array.from(routes).map((route)=>{
+                  console.log(`${match.path}${route.path}`)
+                  return (
+                    <Route path={`${match.path}${route.path}`} key={route.path} exact>
+                        <route.component/>
+                    </Route>
+                  )
+                })
+              }
+            </Switch>
           </Main>
         </Content>
       </PageLayout>

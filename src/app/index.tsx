@@ -22,13 +22,13 @@ function App() {
     <RelayEnvironmentProvider environment={environment}>
       <IconContext.Provider value={{ className: "neo-bank-react-icons" }}>
         <FirebaseContext.Provider value={new Firebase()}>
-          <Router>
+          <Router forceRefresh>
             <Switch>
               <Route path="/create-acount" component={Auth.CreateAccount} />
               <Route path="/retail-login" component={Auth.Login} />
               <Route
                 path="/banking"
-                render={({ location, match }) => {
+                render={({ match }) => {
                   return (
                     <ErrorBoundary
                       fallback={({ error } : EBFallBack) => (

@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import AppSession from "../../../utils/AppSession";
 import PageLayout from "../../layouts/PageLayout";
@@ -10,14 +10,13 @@ import PortalSessionContext from "./PortalSessionContext";
 import routes from "./routes";
 
 export const appSession = new AppSession();
-export const appConfig = appSession.initializeApp()
+export const appConfig = appSession.initializeApp();
 
 export type BankingPortalProps = {
   match: any;
 };
 
 const BankingPortal: React.FC<BankingPortalProps> = ({ match }) => {
-  
   return (
     <PortalSessionContext.Provider value={appSession}>
       <PageLayout>
@@ -25,18 +24,22 @@ const BankingPortal: React.FC<BankingPortalProps> = ({ match }) => {
         <Content>
           <Header />
           <Main>
-            <Switch>
-              {
-                Array.from(routes).map((route)=>{
-                  console.log(`${match.path}${route.path}`)
+            <BrowserRouter forceRefresh> 
+              <Switch>
+                {Array.from(routes).map((route) => {
+                  console.log(`${match.path}${route.path}`);
                   return (
-                    <Route path={`${match.path}${route.path}`} key={route.path} exact>
-                        <route.component/>
+                    <Route
+                      path={`${match.path}${route.path}`}
+                      key={route.path}
+                      exact
+                    >
+                      <route.component />
                     </Route>
-                  )
-                })
-              }
-            </Switch>
+                  );
+                })}
+              </Switch>
+            </BrowserRouter>
           </Main>
         </Content>
       </PageLayout>

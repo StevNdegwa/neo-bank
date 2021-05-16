@@ -4,7 +4,7 @@ import { Environment } from "react-relay";
 
 import type { commitCreateAccountMutation } from "./__generated__/commitCreateAccountMutation.graphql";
 
-const commitCreateAccount = (environment: Environment, account: commitCreateAccountMutation) => {
+const commitCreateAccount = (environment: Environment, account: commitCreateAccountMutation, callBack: (userDetails:any, error:Error | null)=>void) => {
   return commitMutation(environment, {
         mutation: graphql`
                 mutation commitCreateAccountMutation($account: RegisterAccountInput!) {
@@ -30,8 +30,13 @@ const commitCreateAccount = (environment: Environment, account: commitCreateAcco
                 }
             `,
         variables:{ account },
-        onCompleted: (response)=>{
-            console.log(response);
+        onCompleted: (response: any)=>{
+            let value = response?.registerAccount?.registerAccount;
+            if(value.error){
+                return callBack(null, new Error(value.error.message));
+            }else{
+                return callBack(value, null);
+            }
         }
     }
   );

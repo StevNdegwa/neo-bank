@@ -48,11 +48,12 @@ export const Showing = ({ layers, setLayers }: any) => {
     <>
       {layers[layers.length - 1] &&
         layers[layers.length - 1].links.map((link: any, index: number) => {
-          if (link.links) {
-            return <MainLink setLayers={setLayers} link={link} key={index} />;
-          }
-          return <SubLink link={link} key={index} />;
-        })}
+
+          return !!link.links ?
+            (<MainLink setLayers={setLayers} link={link} key={index} />) :
+            (<SubLink link={link} key={index} />)
+        })
+      }
     </>
   );
 };

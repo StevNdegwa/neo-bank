@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { colors } from "../../../../styles/ds";
 
 
-export const Wrapper = styled(motion.div)`
+export const Wrapper = styled(motion.aside)`
 width:auto;
 height:100%;
 position:absolute;
@@ -14,7 +14,7 @@ font-weight:600;
 background-color: ${colors.w};
 `;
 
-export const Drawer = styled.div`
+export const Drawer = styled.nav`
 width:0px;
 height:100%;
 min-width:0px;

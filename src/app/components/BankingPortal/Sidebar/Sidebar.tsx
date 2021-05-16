@@ -19,11 +19,12 @@ import {
 
 import { OverLay } from "../styles";
 import links from "../../../config/links";
+import { useDisclosure } from "../../../../utils/hooks";
 
 import { History, MainLink, Showing } from "./elements";
 
 const Sidebar = () => {
-  const [showOverlay, setShowOverLay] = useState<boolean>(false);
+  const { isOpen, onToggle, onClose } = useDisclosure({});
   const [layers, setLayers] = useState([]);
   const [active, setActive] = useState<string>("accounts");
 
@@ -31,14 +32,14 @@ const Sidebar = () => {
     <>
       <Wrapper>
         <Actions>
-          <Action onClick={() => setShowOverLay((s) => !s)}><MdMenu /></Action>
+          <Action onClick={onToggle}><MdMenu /></Action>
           <Action active={active === "accounts"}><MdAccountBalanceWallet /></Action>
           <Action active={active === "payments"}><MdPayment/></Action>
           <Action active={active === "beneficiary"}><MdPeople/></Action>
           <Action active={active === "service-requests"}><MdPublic/></Action>
           <Action active={active === "personal-financial-management"}><MdAccountBalance/></Action>
         </Actions>
-        <Drawer showing={showOverlay}>
+        <Drawer showing={isOpen} aria-hidden={isOpen ? "false" : "true"} aria-label="Banking services">
           <NeoBank>NEO BANK</NeoBank>
           {
             !layers.length ? (
@@ -62,7 +63,7 @@ const Sidebar = () => {
           }
         </Drawer>
       </Wrapper>
-      <OverLay show={showOverlay} onClick={() => setShowOverLay(false)} />
+      <OverLay show={isOpen} onClick={onClose} />
     </>
   );
 };

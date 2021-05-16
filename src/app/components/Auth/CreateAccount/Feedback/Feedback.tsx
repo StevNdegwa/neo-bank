@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { MdContentCopy, MdCheckCircle, MdError } from "react-icons/md";
 import FadeLoader from "react-spinners/FadeLoader";
@@ -24,6 +24,16 @@ const Feedback: FC<FeedbackProps> = ({
   retry
 }) => {
   const { copied, copy } = useCopy();
+  const copyBtn = useRef<HTMLButtonElement | null>(null);
+  const retryBtn = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(()=>{
+    if(!!error){
+      retryBtn.current?.focus();
+    }else if(isOpen){
+      copyBtn.current?.focus();
+    }
+  }, [error, isOpen, submitting]);
 
   return (
     <Modal isOpen={isOpen}>
@@ -39,7 +49,7 @@ const Feedback: FC<FeedbackProps> = ({
                 <p className="userId">
                   Your account ID will be,&nbsp;
                   <span>{userDetails.accountRef}</span> 
-                  <button className="transparent" onClick={()=>copy(userDetails.accountRef)}>
+                  <button className="transparent" onClick={()=>copy(userDetails.accountRef)} ref={copyBtn}>
                     {copied ? "Copied!" : <MdContentCopy />}
                   </button>
                 </p>
@@ -60,7 +70,7 @@ const Feedback: FC<FeedbackProps> = ({
                     { error.message }
                 </Main>
                 <Footer>
-                    <button onClick={retry} className="primary filled medium rounded">Retry</button>
+                    <button onClick={retry} className="primary filled medium rounded" ref={retryBtn}>Retry</button>
                 </Footer>
             </>
           )}

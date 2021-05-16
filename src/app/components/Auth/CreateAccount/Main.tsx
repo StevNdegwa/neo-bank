@@ -31,7 +31,7 @@ const Main:FC<MainProps> = ({ page })=>{
                 return (
                     <>
                         <div style={{width:"100%"}}>
-                            <TextInput register={register("userName")}  name="userName" label="User name" className="auth" placeholder="User name"/>
+                            <TextInput autoFocus register={register("userName")}  name="userName" label="User name" className="auth" placeholder="User name"/>
                         </div>
                         <div style={{width:"100%"}}>
                             <PasswordInput register={register("password")}  name="password" label="Password" placeholder="Account password"/>

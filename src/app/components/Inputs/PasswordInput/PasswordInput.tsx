@@ -23,6 +23,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
         type="password"
         className={`${className} auth`}
         placeholder={placeholder}
+        aria-label={label}
       />
     </>
   );

@@ -29,6 +29,11 @@ const CreateAccount: React.FC = () => {
 
   const environment = useRelayEnvironment();
 
+  const retry = useCallback(()=>{
+    clearError();
+    setPage(Pages.DETAILS);
+  }, [clearError, setPage]);
+
   const onSubmit = useCallback((data: any) => {
     setLoading(true);
     openModal();
@@ -51,7 +56,7 @@ const CreateAccount: React.FC = () => {
   return (
     <AuthLayout>
       <Wrapper>
-        <Feedback submitting={loading} userDetails={userDetails} isOpen={isOpen} closeModal={closeModal} error={submitError} retry={clearError}/>
+        <Feedback submitting={loading} userDetails={userDetails} isOpen={isOpen} closeModal={closeModal} error={submitError} retry={retry}/>
         <FormProvider {...methods}>
           <Form onSubmit={methods.handleSubmit(onSubmit)}>
             <Main page={page} />

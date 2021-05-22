@@ -27,7 +27,6 @@ const BankingPortal: React.FC<BankingPortalProps> = ({ match }) => {
             <BrowserRouter forceRefresh> 
               <Switch>
                 {Array.from(routes).map((route) => {
-                  console.log(`${match.path}${route.path}`);
                   return (
                     <Route
                       path={`${match.path}${route.path}`}

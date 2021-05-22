@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Wrapper } from "./styles";
 import { usePreloadedQuery } from "react-relay";
 import LastTransactions from "./LastTransactions";
@@ -12,10 +12,13 @@ export interface UserDashboardProps {
 }
 
 const UserDashboard: FC<UserDashboardProps> = ({ dashboardQuery, dashboardQueryRef })=>{
-    const data = usePreloadedQuery(dashboardQuery, dashboardQueryRef);
+    const data: any = usePreloadedQuery(dashboardQuery, dashboardQueryRef);
    
-    console.log(data);
-    
+    try{
+        let str = JSON.stringify(data?.sessionLogin.token);
+        localStorage.setItem("token", str);
+    }catch(error){}
+
     return (
         <Wrapper>
             <LastTransactions/>

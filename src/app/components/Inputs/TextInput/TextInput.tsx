@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 
 export type TextInputProps = {
@@ -16,11 +16,12 @@ export type TextInputProps = {
 const TextInput: React.FC<TextInputProps> = (
   { name, type = "text", label, className, placeholder, register, disabled, defaultValue, autoFocus }
 ) => {
-  const { ref: inputRef, ...props } = register;
+  let { ref, ...props } = register;
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(()=>{
-    if(autoFocus){
-      inputRef.prototype.current?.focus()
+    if(autoFocus && inputRef.current){
+      inputRef.current?.focus();
     }
   }, [ autoFocus, inputRef ]);
 
@@ -35,7 +36,10 @@ const TextInput: React.FC<TextInputProps> = (
         defaultValue={defaultValue}
         aria-label={label}
         {...props}
-        ref={inputRef}
+        ref={(el)=>{
+          ref(el);
+          inputRef.current = el;
+        }}
       />
     </>
   );

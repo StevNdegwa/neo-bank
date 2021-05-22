@@ -50,7 +50,6 @@ class AppSession {
 
         const udqRef = loadQuery(environment, userDashboardQuery, this.variables);
         const request = getRequest(userDashboardQuery);
-        console.log(this.user)
         const descriptor = createOperationDescriptor(request, this.variables);
         this.loginSession = environment.retain(descriptor);
 

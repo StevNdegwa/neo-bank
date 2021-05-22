@@ -21,7 +21,9 @@ class Firestore {
                             firstName: data.firstName,
                             lastName: data.lastName,
                             email: data.email,
-                            dateCreated: data.dateCreated
+                            dateCreated: data.dateCreated,
+                            openingBalance: data.openingBalance || 0, 
+                            currentBalance: data.currentBalance || 0
                         }
                     }
 
@@ -33,10 +35,12 @@ class Firestore {
                 
                 let newId = `${firstName.slice(0,2)}${lastName.slice(0,2)}${parseInt(id.slice(4)) + 1}`.toUpperCase();
 
-                return collection
+                let registerdUser = await collection
                     .doc(newId)
-                    .set({ firstName, lastName, email, dateCreated: new Date() })
-                    .then(()=>({ id: newId, firstName, lastName, email }))
+                    .set({ firstName, lastName, email, dateCreated: new Date(), openingBalance: 0, currentBalance:0 })
+                    .then(()=>({ id: newId, firstName, lastName, email }));
+
+                return registerdUser;
             },
             delete: (id: string) => {
                 return collection.doc(id).delete()

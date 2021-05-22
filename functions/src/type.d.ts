@@ -10,3 +10,8 @@ export type BankAcc = {
 export type BankAccDetails = {
     accNumber:string;
 }
+
+export interface BankAccBalances {
+    openingBalance?: number;
+    currentBalance?: number;
+}

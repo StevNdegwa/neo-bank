@@ -29,7 +29,6 @@ const RegisterAccount = mutationWithClientMutationId({
     },
     mutateAndGetPayload: async (payload) => {
         try {
-
             let newAccSchema  = yup.object().shape({
                 firstName: yup.string().required("User first name is required").min(3, "A valid first name was expected"),
                 lastName: yup.string().required("User last name is required").min(2, "A valid last name is required"),
@@ -49,11 +48,9 @@ const RegisterAccount = mutationWithClientMutationId({
         }
 
         try {
-            
             let accountData = await bankAccountDB().register(payload.account);
 
             try {
-
                 let { firstName, lastName, email, password } = payload.account;
 
                 await authenticateBankAccountOwner()
@@ -73,7 +70,6 @@ const RegisterAccount = mutationWithClientMutationId({
             }
 
             return accountData;
-
         } catch (error) {
 
             return {

@@ -4,7 +4,7 @@ import { graphqlHTTP } from "express-graphql";
 
 
 import schema from "./middlewares/graphql/schema";
-import { IncomingMessage, ServerResponse } from "node:http";
+import { IncomingMessage, ServerResponse } from "http";
 
 const app: express.Express = express();
 

@@ -7,7 +7,7 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - main
 jobs:
-  build:
+  hosting-build:
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -17,14 +17,28 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
-      - name: Archive Production Artifact
+      - name: Archive Production Client Artifact
         uses: actions/upload-artifact@v2
         with:
           name: build
           path: build
-  deploy:
+  functions-deploy:
     name: Deploy
-    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ./functions
+      - name: Deploy to Firebase
+        uses: chrissank/deploy-firebase-functions@1.0.0
+        env:
+          FIREBASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET: default
+  hosting-deploy:
+    name: Deploy
+    needs: hosting-build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo

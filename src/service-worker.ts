@@ -11,8 +11,8 @@
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { precacheAndRoute, createHandlerBoundToURL, matchPrecache } from 'workbox-precaching';
-import { registerRoute, setCatchHandler } from 'workbox-routing';
+import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
+import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 
 declare const self: ServiceWorkerGlobalScope;
@@ -107,6 +107,7 @@ registerRoute(
   })
 )
 
+/**
 setCatchHandler(
   async ({ event, request })=>{
     
@@ -116,4 +117,5 @@ setCatchHandler(
 
     return Response.error();
   }
-)
+) 
+*/

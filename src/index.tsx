@@ -18,9 +18,7 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
 
-serviceWorkerRegistration.unregister();
-
-/**serviceWorkerRegistration
+serviceWorkerRegistration
 .register({
   onSuccess: (registration)=>{
     console.log("Registered successfully");
@@ -30,7 +28,7 @@ serviceWorkerRegistration.unregister();
     console.log("Updated");
     console.log(registration);
   }
-});**/
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

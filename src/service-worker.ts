@@ -8,10 +8,11 @@
 // You can also remove this file if you'd prefer not to use a
 // service worker, and the Workbox build step will be skipped.
 
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
-import { registerRoute } from 'workbox-routing';
+import { precacheAndRoute, createHandlerBoundToURL, matchPrecache } from 'workbox-precaching';
+import { registerRoute, setCatchHandler } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 
 declare const self: ServiceWorkerGlobalScope;
@@ -72,9 +73,47 @@ registerRoute(
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
+  console.log(event);
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
 });
 
-// Any other custom service worker logic can go here.
+// Cache google fonts
+registerRoute(
+  ({ url })=>url.origin === "https://fonts.googleapis.com",
+  new StaleWhileRevalidate({
+    cacheName: "google-fonts",
+    plugins: [
+      new ExpirationPlugin({ maxEntries: 20 })
+    ]
+  })
+)
+
+//cache html
+registerRoute(
+  ({ request })=> request.destination === "style",
+  new StaleWhileRevalidate({
+    cacheName:"styles",
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [200]
+      }),
+      new ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 60 * 60 * 24 * 30
+      })
+    ]
+  })
+)
+
+setCatchHandler(
+  async ({ event, request })=>{
+    
+    if(event.request.destination === "document"){
+      return matchPrecache("/offline.html")
+    }
+
+    return Response.error();
+  }
+)

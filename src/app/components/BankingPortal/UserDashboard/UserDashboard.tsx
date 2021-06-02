@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { Wrapper } from "./styles";
 import { usePreloadedQuery } from "react-relay";
 import LastTransactions from "./LastTransactions";

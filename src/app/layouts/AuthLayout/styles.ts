@@ -17,6 +17,7 @@ box-shadow: 0px 2px 5px ${colors.c_10};
 export const Main = styled.div`
 padding:2em;
 width:100%;
+overflow:auto;
 height:calc(100% - 130px);
 background-color: ${colors.c_2};
 `;

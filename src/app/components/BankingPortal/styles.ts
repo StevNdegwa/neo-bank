@@ -38,10 +38,14 @@ ${({ show }: { show: boolean }) => show && css`
 export const PortalGrid = styled.div`
 width:100%;
 height:100%;
-display:grid;
-grid-template-columns:250px 300px 900px calc(100% - 1450px);
-grid-template-rows:100px 70px 130px 170px 100px 20%;  
-grid-column-gap:20px;
-grid-row-gap:20px; 
+display:grid; 
 overflow:auto;
+grid-template-columns:1fr 300px 800px 1fr;
+grid-template-rows:1fr 70px 130px 170px 100px 1fr;  
+grid-column-gap:20px;
+grid-row-gap:20px;
+@media only screen and (max-width:1024px){
+    grid-template-columns:1fr 300px 600px 1fr;
+    grid-template-rows:10px 70px 130px 170px 100px 1fr;      
+}
 `;

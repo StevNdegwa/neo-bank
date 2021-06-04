@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import "./styles/all.scss";
 
-import App from './app';
+import App from './presentation';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 

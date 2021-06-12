@@ -2,7 +2,7 @@
 import { graphql } from "babel-plugin-relay/macro";
 import { loadQuery } from "react-relay";
 import { createOperationDescriptor, getRequest } from "relay-runtime";
-import environment from "../../infrastructure/api/graphql-relay/Environment";
+import { environment } from "../relay/Environment";
 
 class AppSession {
     variables: any;
@@ -12,7 +12,7 @@ class AppSession {
     constructor() {
         const USER = localStorage.getItem("USER") || "";
 
-        if(!USER){
+        if (!USER) {
             throw new Error("User has not logged in");
         }
 

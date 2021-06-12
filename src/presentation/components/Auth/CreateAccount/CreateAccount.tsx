@@ -8,7 +8,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import Feedback from "./Feedback";
 import { useModal } from "../../Modal";
-import { useError } from "../../../../application/hooks";
+import { useError } from "../../../../application/helpers/hooks";
 
 export type CreateAccountProps = {};
 
@@ -49,6 +49,9 @@ const CreateAccount: React.FC = () => {
         setLoading(false);
         return;
       },
+      onError: (error:any)=>{
+        setSubmitError(new Error(error.message))
+      }
     });
     /* eslint-disable */
   }, []);

@@ -8,7 +8,7 @@ import Home from "./components/Home";
 import Auth from "./components/Auth";
 import BankingPortalErrorUI from "./components/BankingPortal/BankingPortalErrorUI";
 import ErrorBoundary from "./ErrorBoundary";
-import environment from "../infrastructure/api/graphql-relay/Environment";
+import { environment } from "../application/relay/Environment";
 import Firebase from "../application/firebase";
 import FirebaseContext from "../application/context/FirebaseContext";
 import { EBFallBack } from "./types";
@@ -31,7 +31,7 @@ function App() {
                 render={({ match }) => {
                   return (
                     <ErrorBoundary
-                      fallback={({ error } : EBFallBack) => (
+                      fallback={({ error }: EBFallBack) => (
                         <BankingPortalErrorUI error={error} />
                       )}
                     >

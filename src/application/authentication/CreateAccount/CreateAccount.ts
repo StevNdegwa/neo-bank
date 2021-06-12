@@ -1,7 +1,6 @@
 import { graphql } from "babel-plugin-relay/macro";
 import { GraphQLTaggedNode } from "relay-runtime";
-
-import GraphQlMutation from "../GraphQlMutation";
+import GraphQlMutation from "../../relay/GraphQlMutation";
 
 const CreateAccount: GraphQLTaggedNode = graphql`
     mutation CreateAccountMutation($account: RegisterAccountInput!) {

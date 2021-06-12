@@ -10,5 +10,6 @@ axios.interceptors.request.use(
     }
 )
 
+axios.defaults.baseURL = "http://localhost:5001/neo-bank-b1ffd/us-central1/api/";
 
 export default axios;

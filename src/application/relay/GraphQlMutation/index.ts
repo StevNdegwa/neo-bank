@@ -1,9 +1,8 @@
 import { GraphQLTaggedNode, commitMutation } from "relay-runtime";
-import IGraphql from "../../../interfaces/IGraphql";
-import environment from "../Environment";
+import { environment } from "../Environment";
 
 
-class GraphQlMutation implements IGraphql {
+class GraphQlMutation {
     query: GraphQLTaggedNode;
     variables: any;
 
@@ -12,7 +11,7 @@ class GraphQlMutation implements IGraphql {
         this.variables = variables;
     }
 
-    execute({ variables, onCompleted, onError }:any) {
+    execute({ variables, onCompleted, onError }: any) {
         return commitMutation(
             environment,
             {

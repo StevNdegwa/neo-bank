@@ -1,4 +1,4 @@
-import CreateAccountMutaion from "../../infrastructure/api/graphql-relay/CreateAccount";
+import CreateAccountMutaion from "../authentication/CreateAccount";
 
 export default function useCreateAccount() {
     const createAccount = ({ variables, onCompleted, onError }: any) => {

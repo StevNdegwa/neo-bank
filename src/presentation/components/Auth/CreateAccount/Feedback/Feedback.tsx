@@ -4,7 +4,7 @@ import { MdContentCopy, MdCheckCircle, MdError } from "react-icons/md";
 import FadeLoader from "react-spinners/FadeLoader";
 import Modal from "../../../Modal";
 import { Header, Wrapper, Main, Footer } from "./styles";
-import { useCopy } from "../../../../../application/hooks/useCopyPaste";
+import { useCopy } from "../../../../../application/helpers/hooks";
 
 export interface FeedbackProps {
   userDetails: any;

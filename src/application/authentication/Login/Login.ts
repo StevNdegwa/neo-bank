@@ -1,7 +1,6 @@
 import { graphql } from "babel-plugin-relay/macro";
-import IGraphql from "../../../interfaces/IGraphql";
 
-const Login: IGraphql = {
+const Login = {
     query: graphql`
         query LoginQuery ($accountRef: String!) {
             account ( account: { accountRef: $accountRef} ){

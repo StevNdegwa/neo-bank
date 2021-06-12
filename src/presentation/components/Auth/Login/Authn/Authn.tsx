@@ -17,6 +17,7 @@ export type AuthnProps = {
 
 const Authn: FC<AuthnProps> = ({ loginQueryRef, setNoData }) => {
   const { account } = useAuthN(loginQueryRef);
+  console.log(account);
 
   const firebase = useContext(FirebaseContext);
   let history = useHistory();
@@ -53,8 +54,10 @@ const Authn: FC<AuthnProps> = ({ loginQueryRef, setNoData }) => {
     setLoading(false);
   }
 
-  if(account.error){
-    throw account.error.message;
+  if(account){
+    if(account.error){
+      throw account.error.message;
+    }
   }
   
   return (

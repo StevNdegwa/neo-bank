@@ -13,36 +13,45 @@ import LoginErrorFallback from "./LoginErrorFallback";
 
 export type LoginProps = {};
 
-const Login: FC<LoginProps> = ()=>{
-    
-    const { authn, onSubmitHandler, handleNoData, loginQueryRef } = useLogin();
+const Login: FC<LoginProps> = () => {
+  const { authn, onSubmitHandler, handleNoData, loginQueryRef } = useLogin();
 
-    return (
-        <AuthLayout>
-            <Wrapper>
-                <Header>
-                    <div className="rb-logo">
-                        { /* <img width="100%" alt="Retail Banking" height="150px" src={retail_banking} /> */ }
-                        <ReactSVG width="40px" src={lock}/>
-                    </div>
-                    <div className="text">Internet banking login</div>
-                </Header>
-                {
-                    !authn ? 
-                    <ValidateAccount validateAccount={onSubmitHandler}/> :
-                    loginQueryRef &&
-                        <ErrorBoundary onRetry={handleNoData} fallback={({ error, retry })=>(<LoginErrorFallback error={error} tryAgain={retry} />)}>
-                            <Suspense fallback={
-                                <Info style={{ height:"200px" }}><PulseLoader loading={true} /></Info>
-                            }>
-                                <Authn loginQueryRef={loginQueryRef} setNoData={handleNoData}/>
-                            </Suspense>
-                        </ErrorBoundary>
+  return (
+    <AuthLayout>
+      <Wrapper>
+        <Header>
+          <div className="rb-logo">
+            {/* <img width="100%" alt="Retail Banking" height="150px" src={retail_banking} /> */}
+            <ReactSVG width="40px" src={lock} />
+          </div>
+          <div className="text">Internet banking login</div>
+        </Header>
+        {!authn ? (
+          <ValidateAccount validateAccount={onSubmitHandler} />
+        ) : (
+          loginQueryRef && (
+            <ErrorBoundary
+              onRetry={handleNoData}
+              fallback={({ error, retry }) => (
+                <LoginErrorFallback error={error} tryAgain={retry} />
+              )}
+            >
+              <Suspense
+                fallback={
+                  <Info style={{ height: "200px" }}>
+                    <PulseLoader loading={true} />
+                  </Info>
                 }
-            </Wrapper>
-        </AuthLayout>
-    )
-}
+              >
+                <Authn loginQueryRef={loginQueryRef} setNoData={handleNoData} />
+              </Suspense>
+            </ErrorBoundary>
+          )
+        )}
+      </Wrapper>
+    </AuthLayout>
+  );
+};
 
 Login.displayName = "Login";
 
